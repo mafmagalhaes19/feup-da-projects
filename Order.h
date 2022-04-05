@@ -7,7 +7,10 @@
 
 
 class Order {
-
+private:
+    double volume;
+    double weight;
+    double reward;
 };
 
 
