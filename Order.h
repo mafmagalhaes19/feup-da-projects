@@ -11,6 +11,7 @@ private:
     double volume;
     double weight;
     double reward;
+    double duration;
 };
 
 
