@@ -6,12 +6,14 @@
 #include "DeliveryManager/DeliveryManager.h"
 #include "Menu/Menu.h"
 
+using namespace std;
+
 int main() {
 
     DeliveryManager deliveryManager;
 
-    //stcpMap.readParagens();
-    //stcpMap.readListaLinhas();
+    deliveryManager.readOrders();
+    deliveryManager.readVans();
 
     Menu menu = Menu(deliveryManager);
 

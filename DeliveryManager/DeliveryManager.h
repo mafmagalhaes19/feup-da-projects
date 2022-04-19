@@ -6,7 +6,26 @@
 #define DA_PROJECT_DELIVERYMANAGER_H
 
 
+#include "Order.h"
+#include "Van.h"
+
+#include <vector>
+
+using namespace std;
+
 class DeliveryManager {
+public:
+    DeliveryManager();
+
+    //Reads the datasets
+    void readOrders();
+    void readVans();
+
+private:
+    vector<Order> _orders;
+    vector<Van> _vans;
+
+
 
 };
 

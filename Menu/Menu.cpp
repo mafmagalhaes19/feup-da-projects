@@ -24,12 +24,13 @@ int Menu::validadeInput(string input) {
     }else{return -1;}
 }
 
-[[noreturn]] unsigned Menu::mainMenu() {
+unsigned Menu::mainMenu() {
     string choice;
     int input;
 
-    cout << "Bem vindo a Delivery Manager!!" << endl;
+    cout << "Bem vindo a Delivery Manager!!!" << endl;
 
+    cout << endl;
     cout << endl;
     cout << endl;
 

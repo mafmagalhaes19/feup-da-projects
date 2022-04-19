@@ -23,7 +23,7 @@ public:
 
     int validadeInput(string input);
 
-    [[noreturn]] unsigned mainMenu();
+    unsigned mainMenu();
 
 
 };
