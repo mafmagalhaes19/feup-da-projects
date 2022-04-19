@@ -10,6 +10,16 @@ Van::Van(int volMax, int weightMax, int cost) {
     _volMax = volMax;
     _weightMax = weightMax;
     _cost = cost;
+    _densityMax = weightMax / volMax;
+    _volMultWeightMax = weightMax * volMax;
+}
+
+int Van::getDensityMax() {
+    return _densityMax;
+}
+
+int Van::getVolMultWeightMax() {
+    return _volMultWeightMax;
 }
 
 

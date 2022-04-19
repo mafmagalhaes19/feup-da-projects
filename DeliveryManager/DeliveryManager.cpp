@@ -81,7 +81,61 @@ void DeliveryManager::readVans() {
 }
 
 void DeliveryManager::sceneOne() {
+    int totalVans = firstFitDecOrderDensity();
+    cout << "Total de carrinhas: " << totalVans << endl;
 
+}
+
+bool DeliveryManager::compareOrderDensity(Order order1, Order order2) {
+    return (order1.getDensity() < order2.getDensity());
+}
+
+
+bool DeliveryManager::compareVansDensityMax(Van van1, Van van2) {
+    return (van1.getDensityMax() < van2.getDensityMax());
+}
+
+
+int DeliveryManager::firstFitOrderDensity(vector<int> ordersDensity, vector<int> vansDensity) {
+    int totalVans = 0;
+
+    //Vector with remaining space (density) in each van
+    vector<int> vanRemainingDensity = vansDensity;
+
+    for (int i = 0; i < ordersDensity.size(); i++){
+        //Search for the first van than can fit the order according to its density
+        for (int j = 0; j < totalVans; j++) {
+            if (vanRemainingDensity.at(j) >= ordersDensity.at(i)) {
+                vanRemainingDensity.at(j) = vanRemainingDensity.at(j) - ordersDensity.at(i);
+                break;
+            }
+        }
+    }
+    return totalVans;
+}
+
+
+int DeliveryManager::firstFitDecOrderDensity() {
+    vector<int> _ordersDensity;
+    _ordersDensity.reserve(_orders.size());
+    vector<int> _vansDensityMax;
+    _vansDensityMax.reserve(_vans.size());
+
+    //TO DO - Sort all order densities in decreasing order
+    sort(_orders.begin(), _orders.end(), compareOrderDensity);
+
+    //TO DO - Sort all vans densities in decreasing order
+    sort(_vans.begin(), _vans.end(), compareVansDensityMax);
+
+    for(int i = 0; i < _orders.size(); i ++){
+        _ordersDensity.push_back(_orders.at(i).getDensity());
+    }
+
+    for(int i = 0; i < _vans.size(); i ++){
+        _vansDensityMax.push_back(_vans.at(i).getDensityMax());
+    }
+
+    return firstFitOrderDensity(_ordersDensity, _vansDensityMax);
 }
 
 void DeliveryManager::sceneTwo() {

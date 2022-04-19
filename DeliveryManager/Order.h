@@ -14,9 +14,15 @@ private:
     int _reward;
     int _duration;
 
+    //Helper variables for scene one
+    int _density;
+    int _volMultWeight;
+
 public:
     Order();
     Order(int volume, int weight, int reward, int duration);
+    int getDensity();
+    int getVolMultWeight();
 };
 
 
