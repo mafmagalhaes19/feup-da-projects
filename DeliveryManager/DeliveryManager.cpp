@@ -1,5 +1,5 @@
 //
-// Created by Mafalda Magalhães on 19/04/2022.
+// Created by Mafalda Magalhães on 05/04/2022.
 //
 
 #include <string>
@@ -77,5 +77,17 @@ void DeliveryManager::readVans() {
     } else {
         cout << "Erro ao abrir ficheiro das carrinhas." << endl;
     }
+
+}
+
+void DeliveryManager::sceneOne() {
+
+}
+
+void DeliveryManager::sceneTwo() {
+
+}
+
+void DeliveryManager::sceneThree() {
 
 }

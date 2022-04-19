@@ -1,5 +1,5 @@
 //
-// Created by Mafalda Magalhães on 19/04/2022.
+// Created by Mafalda Magalhães on 05/04/2022.
 //
 
 #include "Menu.h"
@@ -53,12 +53,15 @@ unsigned Menu::mainMenu() {
         {
             case 1:
                 //Cenario 1
+                _deliveryManager.sceneOne();
                 break;
             case 2:
                 //Cenario 2
+                _deliveryManager.sceneTwo();
                 break;
             case 3:
                 //Cenario 3
+                _deliveryManager.sceneThree();
                 break;
             case 4:
                 break;

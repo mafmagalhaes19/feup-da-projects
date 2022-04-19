@@ -1,5 +1,5 @@
 //
-// Created by Mafalda Magalhães on 19/04/2022.
+// Created by Mafalda Magalhães on 05/04/2022.
 //
 
 #ifndef DA_PROJECT_DELIVERYMANAGER_H
@@ -20,6 +20,10 @@ public:
     //Reads the datasets
     void readOrders();
     void readVans();
+
+    void sceneOne();
+    void sceneTwo();
+    void sceneThree();
 
 private:
     vector<Order> _orders;
