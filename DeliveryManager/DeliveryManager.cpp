@@ -345,21 +345,23 @@ bool DeliveryManager::compareOrderDuration(Order order1, Order order2) {
 }
 
 void DeliveryManager::sceneThree() {
+    //Total time
     int sumTime = 0;
-    double count = 0, averageTime;
+    double count = 0;
+    double averageTime = 0;
     vector<int> _ordersDuration;
     _ordersDuration.reserve(_orders.size());
 
+    //Sort the orders by ascending duration
     sort(_orders.begin(), _orders.end(), compareOrderDuration);
 
-    for(int i = 0; i < _orders.size(); i++) {
-        _ordersDuration.push_back(_orders.at(i).getDuration());
-    }
-
-    for(int i = 0; sumTime + _ordersDuration[i] <= 28800;i++) {
-        sumTime += _ordersDuration[i];
+    for(int i = 0; sumTime + _orders[i].getDuration() <= 28800; i++) {
+        sumTime += _orders[i].getDuration();
         count++;
     }
+    //Average delivery time per order
     averageTime = sumTime/count;
-    cout << "O tempo médio mínimo é: " << averageTime << endl;
+
+    cout << "O tempo medio minimo e de  " << averageTime << " s por encomenda" << endl;
+    cout << "Foram entregues " << count << " encomendas (as " << count << " encomendas com a duracao de entrega mais curta)" << endl;
 }
