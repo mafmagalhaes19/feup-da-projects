@@ -20,3 +20,8 @@ int Order::getWeight() {
 int Order::getVolume() {
     return _volume;
 }
+
+int Order::getDuration() {
+    return _duration;
+}
+

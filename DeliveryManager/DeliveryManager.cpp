@@ -340,6 +340,26 @@ void DeliveryManager::sceneTwo() {
 
 }
 
-void DeliveryManager::sceneThree() {
+bool DeliveryManager::compareOrderDuration(Order order1, Order order2) {
+    return (order1.getDuration() < order2.getDuration());
+}
 
+void DeliveryManager::sceneThree() {
+    int sumTime = 0;
+    double count = 0, averageTime;
+    vector<int> _ordersDuration;
+    _ordersDuration.reserve(_orders.size());
+
+    sort(_orders.begin(), _orders.end(), compareOrderDuration);
+
+    for(int i = 0; i < _orders.size(); i++) {
+        _ordersDuration.push_back(_orders.at(i).getDuration());
+    }
+
+    for(int i = 0; sumTime + _ordersDuration[i] <= 28800;i++) {
+        sumTime += _ordersDuration[i];
+        count++;
+    }
+    averageTime = sumTime/count;
+    cout << "O tempo médio mínimo é: " << averageTime << endl;
 }

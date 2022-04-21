@@ -17,8 +17,11 @@ private:
 public:
     Order();
     Order(int volume, int weight, int reward, int duration);
+
     int getWeight();
     int getVolume();
+    int getDuration();
+
 };
 
 
