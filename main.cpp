@@ -12,6 +12,7 @@ int main() {
 
     DeliveryManager deliveryManager;
 
+
     deliveryManager.readOrders();
     deliveryManager.readVans();
 

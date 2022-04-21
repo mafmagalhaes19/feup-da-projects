@@ -13,16 +13,14 @@ private:
     int _weightMax;
     int _cost;
 
-    //Helper variables for scene one
-    int _densityMax;
-    int _volMultWeightMax;
-
 
 public:
     Van();
     Van(int volMax, int weightMax, int cost);
-    int getDensityMax();
-    int getVolMultWeightMax();
+    int getWeightMax();
+    int getVolMax();
+    void setWeightMax(int weightMax);
+    void setVolMax (int volMax);
 
 };
 

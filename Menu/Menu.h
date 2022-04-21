@@ -25,6 +25,8 @@ public:
 
     unsigned mainMenu();
 
+    void showSceneOneMenu();
+
 
 };
 

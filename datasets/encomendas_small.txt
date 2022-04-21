@@ -1,0 +1,4 @@
+volume peso recompensa duração(s)
+3 19 754 984
+16 70 1121 641
+16 300 1121 641

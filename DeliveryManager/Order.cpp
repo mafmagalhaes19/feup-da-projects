@@ -11,15 +11,12 @@ Order::Order(int volume, int weight, int reward, int duration) {
     _weight = weight;
     _reward = reward;
     _duration = duration;
-    _density = weight / volume;
-    _volMultWeight = weight * volume;
 }
 
-int Order::getDensity() {
-    return _density;
+int Order::getWeight() {
+    return _weight;
 }
 
-int Order::getVolMultWeight() {
-    return _volMultWeight;
+int Order::getVolume() {
+    return _volume;
 }
-

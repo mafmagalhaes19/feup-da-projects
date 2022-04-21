@@ -21,13 +21,17 @@ public:
     void readOrders();
     void readVans();
 
-    void sceneOne();
-    static bool compareOrderDensity(Order order1, Order order2);
-    static bool compareVansDensityMax(Van van1, Van van2);
-    //Returns number of vans needed using first fit approach (scan the previous vans in order -biggest van to smallest van- and place the order in the first van that fits)
-    int firstFitOrderDensity(vector<int> ordersDensity, vector<int> vansDensity);
-    //Returns number of vans needed using first fit decreasing algorithm
-    int firstFitDecOrderDensity();
+    void sceneOneWeight();
+    static bool compareOrderWeight(Order order1, Order order2);
+    static bool compareVansWeightMax(Van van1, Van van2);
+    //Returns number of vans needed using best fit decreasing algorithm
+    int bestFitWeight();
+
+    void sceneOneVolume();
+    static bool compareOrderVolume(Order order1, Order order2);
+    static bool compareVansVolMax(Van van1, Van van2);
+    //Returns number of vans needed using best fit decreasing algorithm
+    int bestFitVolume();
 
     void sceneTwo();
     void sceneThree();
