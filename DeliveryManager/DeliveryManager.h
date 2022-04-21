@@ -31,7 +31,7 @@ public:
 
     void sceneTwo();
     void sceneThree();
-
+    static bool compareOrderDuration(Order order1, Order order2);
 private:
     vector<Order> _orders;
     vector<Van> _vans;

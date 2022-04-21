@@ -23,6 +23,7 @@ public:
     Order(int volume, int weight, int reward, int duration);
     int getDensity();
     int getVolMultWeight();
+    int getDuration();
 };
 
 

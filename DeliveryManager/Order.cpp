@@ -23,3 +23,7 @@ int Order::getVolMultWeight() {
     return _volMultWeight;
 }
 
+int Order::getDuration() {
+    return _duration;
+}
+
