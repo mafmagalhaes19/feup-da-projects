@@ -31,9 +31,11 @@ unsigned Menu::mainMenu() {
     int input;
     cout << endl;
 
-    cout << "Bem vindo a Delivery Manager!!!" << endl;
+    cout << "Bem vindo a Delivery Manager!!!" ;
 
     cout << endl;
+    cout << endl;
+
 
 
     cout << "MENU PRINCIPAL\n"
@@ -77,6 +79,8 @@ unsigned Menu::mainMenu() {
         }
         if(input != -1 && input != 4){
             cout << endl;
+            cout << endl;
+
             cout << "MENU PRINCIPAL\n"
                  << "1. Cenario 1\n"
                  << "2. Cenario 2\n"
@@ -96,6 +100,9 @@ unsigned Menu::mainMenu() {
 void Menu::showSceneOneMenu() {
     string choice;
     int input;
+    cout << endl;
+    cout << endl;
+
     cout << "CENARIO 1 \n"
          << "1. Best Fit Approach (Peso) \n"
          << "2. Best Fit Approach (Volume) \n"
@@ -132,6 +139,8 @@ void Menu::showSceneOneMenu() {
         }
         if(input != -1 && input != 4){
             cout << endl;
+            cout << endl;
+
             cout << "CENARIO 1 \n"
                  << "1. Best Fit Approach -> Peso \n"
                  << "2. Best Fit Approach -> Volume \n"
@@ -150,6 +159,8 @@ void Menu::showSceneOneMenu() {
 void Menu::showSceneTwoMenu() {
     string choice;
     int input;
+    cout << endl;
+    cout << endl;
     cout << "CENARIO 2 \n"
          << "1. Best Fit Approach -> Variavel Beneficio \n"
          << "2. Best Fit Approach -> Custo \n"
@@ -182,6 +193,7 @@ void Menu::showSceneTwoMenu() {
                 break;
         }
         if(input != -1 && input != 3){
+            cout << endl;
             cout << endl;
             cout << "CENARIO 2 \n"
                  << "1. Best Fit Approach -> Variável Benefício \n"
