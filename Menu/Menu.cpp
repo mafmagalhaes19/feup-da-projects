@@ -60,7 +60,7 @@ unsigned Menu::mainMenu() {
                 break;
             case 2:
                 //Scene 2
-                _deliveryManager.sceneTwo();
+                showSceneTwoMenu();
                 break;
             case 3:
                 //Scene 3
@@ -119,6 +119,60 @@ void Menu::showSceneOneMenu() {
                 _deliveryManager.sceneOneVolume();
                 break;
             case 3:
+                _deliveryManager.sceneOneVolPlusWeight();
+                break;
+            case 4:
+                break;
+            default:
+                input = -1;
+                cout << "Input invalido, por favor tente outra vez:" << endl;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cin.clear();
+                break;
+        }
+        if(input != -1 && input != 4){
+            cout << endl;
+            cout << "CENARIO 1 \n"
+                 << "1. Best Fit Approach -> Peso \n"
+                 << "2. Best Fit Approach -> Volume \n"
+                 << "3. Best Fit Approach -> Variavel Peso+Volume \n"
+                 << "4. Voltar ao menu principal"
+                 << endl
+                 <<"Introduza a sua escolha: ";
+
+        }
+
+
+    } while (input != 4);
+
+}
+
+void Menu::showSceneTwoMenu() {
+    string choice;
+    int input;
+    cout << "CENARIO 2 \n"
+         << "1. Best Fit Approach -> Variavel Beneficio \n"
+         << "2. Best Fit Approach -> Custo \n"
+         << "3. Voltar ao menu principal \n"
+         << endl
+         <<"Introduza a sua escolha: ";
+    do
+    {
+        input = -1;
+        cin >> choice;
+        if (!cin.fail() && cin.peek() == '\n'){
+            input = validadeInput(choice);
+        }
+
+        switch (input)
+        {
+            case 1:
+                _deliveryManager.sceneTwoBenefit();
+                break;
+            case 2:
+                _deliveryManager.sceneTwoCost();
+                break;
+            case 3:
                 break;
             default:
                 input = -1;
@@ -129,9 +183,9 @@ void Menu::showSceneOneMenu() {
         }
         if(input != -1 && input != 3){
             cout << endl;
-            cout << "CENARIO 1 \n"
-                 << "1. Best Fit Approach (Peso) \n"
-                 << "2. Best Fit Approach (Volume) \n"
+            cout << "CENARIO 2 \n"
+                 << "1. Best Fit Approach -> Variável Benefício \n"
+                 << "2. Best Fit Approach -> Custo \n"
                  << "3. Voltar ao menu principal \n"
                  << endl
                  <<"Introduza a sua escolha: ";

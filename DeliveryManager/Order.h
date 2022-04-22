@@ -12,6 +12,7 @@ private:
     int _volume;
     int _weight;
     int _reward;
+    int _volPlusWeight;
     int _duration;
 
 public:
@@ -20,6 +21,8 @@ public:
 
     int getWeight();
     int getVolume();
+    int getVolPlusWeight();
+    int getReward();
     int getDuration();
 
 };

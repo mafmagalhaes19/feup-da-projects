@@ -10,6 +10,7 @@ Order::Order(int volume, int weight, int reward, int duration) {
     _volume = volume;
     _weight = weight;
     _reward = reward;
+    _volPlusWeight = volume + weight;
     _duration = duration;
 }
 
@@ -19,6 +20,14 @@ int Order::getWeight() {
 
 int Order::getVolume() {
     return _volume;
+}
+
+int Order::getVolPlusWeight() {
+    return _volPlusWeight;
+}
+
+int Order::getReward(){
+    return _reward;
 }
 
 int Order::getDuration() {

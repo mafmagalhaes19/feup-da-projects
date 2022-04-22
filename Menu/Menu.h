@@ -27,6 +27,8 @@ public:
 
     void showSceneOneMenu();
 
+    void showSceneTwoMenu();
+
 
 };
 

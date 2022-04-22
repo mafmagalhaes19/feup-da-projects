@@ -33,9 +33,24 @@ public:
     //Returns number of vans needed using best fit decreasing algorithm
     int bestFitVolume();
 
-    void sceneTwo();
-    void sceneThree();
+    void sceneOneVolPlusWeight();
+    static bool compareOrderVolPlusWeight(Order order1, Order order2);
+    static bool compareVansVolPlusWeight(Van van1, Van van2);
+    //Returns number of vans needed using best fit decreasing algorithm
+    int bestFitVolPlusWeight();
+
+    void sceneTwoBenefit();
+    static bool compareVansBenefit(Van van1, Van van2);
+    static bool compareOrdersReward(Order order1, Order order2);
+    int bestFitCostBenefit();
+
+    void sceneTwoCost();
+    static bool compareVansCost(Van van1, Van van2);
+    int bestFitCost();
+
     static bool compareOrderDuration(Order order1, Order order2);
+    void sceneThree();
+
 private:
     vector<Order> _orders;
     vector<Van> _vans;
