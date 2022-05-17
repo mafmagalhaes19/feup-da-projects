@@ -106,7 +106,8 @@ void Menu::showSceneOneMenu() {
     cout << "CENARIO 1 \n"
          << "1. Best Fit Approach (Peso) \n"
          << "2. Best Fit Approach (Volume) \n"
-         << "3. Voltar ao menu principal \n"
+         << "3. Best Fit Approach -> Variavel Peso+Volume \n"
+         << "4. Voltar ao menu principal"
          << endl
          <<"Introduza a sua escolha: ";
     do
