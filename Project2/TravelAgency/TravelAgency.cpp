@@ -90,16 +90,33 @@ void TravelAgency::readOneDataset(string filename) {
     }
 }
 
-void TravelAgency::sceneOne() {
-    cout << "1" << endl;
+void TravelAgency::sceneOneOne() {
+    cout << "1.1" << endl;
 }
 
-void TravelAgency::sceneTwo() {
-    cout << "2" << endl;
+void TravelAgency::sceneOneTwo() {
+    cout << "1.2" << endl;
 }
 
-void TravelAgency::sceneThree() {
-    cout << "3" << endl;
+void TravelAgency::sceneTwoOne() {
+    cout << "2.1" << endl;
 }
+
+void TravelAgency::sceneTwoTwo() {
+    cout << "2.2" << endl;
+}
+
+void TravelAgency::sceneTwoThree() {
+    cout << "2.3" << endl;
+}
+
+void TravelAgency::sceneTwoFour() {
+    cout << "2.4" << endl;
+}
+
+void TravelAgency::sceneTwoFive() {
+    cout << "   2.5" << endl;
+}
+
 
 

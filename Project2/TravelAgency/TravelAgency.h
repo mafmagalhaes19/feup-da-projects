@@ -18,9 +18,14 @@ public:
     void readDatasets();
     void readOneDataset(string filename);
 
-    void sceneOne();
-    void sceneTwo();
-    void sceneThree();
+    void sceneOneOne();
+    void sceneOneTwo();
+
+    void sceneTwoOne();
+    void sceneTwoTwo();
+    void sceneTwoThree();
+    void sceneTwoFour();
+    void sceneTwoFive();
 };
 
 

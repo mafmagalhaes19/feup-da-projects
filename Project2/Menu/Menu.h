@@ -18,6 +18,9 @@ public:
     Menu(TravelAgency travelAgency);
     int validadeInput(string input);
     unsigned mainMenu();
+    void SceneOneMenu();
+    void SceneTwoMenu();
+
 };
 
 
