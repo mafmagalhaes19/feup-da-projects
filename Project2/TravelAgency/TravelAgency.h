@@ -1,6 +1,3 @@
-//
-// Created by Mafalda Magalhães on 24/05/2022.
-//
 
 #ifndef DA_PROJECT_TRAVELAGENCY_H
 #define DA_PROJECT_TRAVELAGENCY_H
@@ -21,6 +18,9 @@ public:
     void readDatasets();
     void readOneDataset(string filename);
 
+    void sceneOne();
+    void sceneTwo();
+    void sceneThree();
 };
 
 

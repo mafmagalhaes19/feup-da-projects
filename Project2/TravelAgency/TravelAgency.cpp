@@ -1,6 +1,4 @@
-//
-// Created by Mafalda Magalhães on 24/05/2022.
-//
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -91,3 +89,17 @@ void TravelAgency::readOneDataset(string filename) {
         cout << "Erro ao abrir ficheiro: " << filename << endl;
     }
 }
+
+void TravelAgency::sceneOne() {
+    cout << "1" << endl;
+}
+
+void TravelAgency::sceneTwo() {
+    cout << "2" << endl;
+}
+
+void TravelAgency::sceneThree() {
+    cout << "3" << endl;
+}
+
+

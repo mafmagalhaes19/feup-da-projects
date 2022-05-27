@@ -1,6 +1,3 @@
-//
-// Created by Mafalda Magalhães on 17/05/2022.
-//
 
 #include <iostream>
 
@@ -16,9 +13,9 @@ int main() {
 
     travelAgency.readDatasets();
 
-    //Menu menu = Menu(travelAgency);
+    Menu menu = Menu(travelAgency);
 
-    //menu.mainMenu();
+    menu.mainMenu();
 
 
     return 0;
