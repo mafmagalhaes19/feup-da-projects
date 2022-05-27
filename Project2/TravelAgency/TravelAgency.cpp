@@ -90,6 +90,7 @@ void TravelAgency::readOneDataset(string filename) {
     }
 }
 
+//1.1. Maximizar a dimensão do grupo e indicar um qualquer encaminhamento.
 void TravelAgency::sceneOneOne() {
     cout << "1.1" << endl;
 }
@@ -115,7 +116,7 @@ void TravelAgency::sceneTwoFour() {
 }
 
 void TravelAgency::sceneTwoFive() {
-    cout << "   2.5" << endl;
+    cout << "2.5" << endl;
 }
 
 
