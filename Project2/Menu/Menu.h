@@ -5,6 +5,7 @@
 #ifndef DA_PROJECT_MENU_H
 #define DA_PROJECT_MENU_H
 
+#include "../TravelAgency/TravelAgency.h"
 
 class Menu {
 

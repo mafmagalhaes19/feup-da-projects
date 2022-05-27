@@ -1,8 +1,9 @@
 # ninja log v5
-5	171	1652812127321035858	build.ninja	673826e578df3f0d
-3	3178	1650993422030374016	CMakeFiles/DA_Project.dir/Menu/Menu.cpp.o	c46a132a712300c6
+5	171	6753609577392962	build.ninja	673826e578df3f0d
 3178	4513	1650993423369905595	DA_Project	3ff335a21d452f0c
-3	752	1650665466639119261	CMakeFiles/DA_Project.dir/DeliveryManager/Van.cpp.o	cb8454338c043ce1
-4	543	1650665466418625758	CMakeFiles/DA_Project.dir/DeliveryManager/Order.cpp.o	e61ce7e33d93a26e
-3	1307	1650666303613315295	CMakeFiles/DA_Project.dir/main.cpp.o	7baad47ae04874ed
-3	1278	1650666430202026331	CMakeFiles/DA_Project.dir/DeliveryManager/DeliveryManager.cpp.o	ee6c3d3c76f4679d
+6	215	6753609647292588	CMakeFiles/DA_Project.dir/DeliveryManager/Order.cpp.obj	7409d85b857bfe00
+16	224	6753609647292588	CMakeFiles/DA_Project.dir/DeliveryManager/Van.cpp.obj	50cb56fd20551c5e
+1	791	6753609653173629	CMakeFiles/DA_Project.dir/main.cpp.obj	6ea5faf927dfd0da
+20	898	6753609654184044	CMakeFiles/DA_Project.dir/Menu/Menu.cpp.obj	a4347a8345021193
+11	1537	6753609660571665	CMakeFiles/DA_Project.dir/DeliveryManager/DeliveryManager.cpp.obj	75c5419fcae56e23
+1537	1910	6753609664246866	DA_Project.exe	df802b84b6d4df69
