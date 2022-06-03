@@ -18,7 +18,7 @@ private:
     vector<Vehicle> _adj;
 
     //Dijkstra Algorithm
-    double _dist;
+    int _capacity;
     int _pred;
     bool _visited;
 
@@ -27,8 +27,8 @@ public:
     void addAdjacentVehicle(Vehicle vehicle);
 
     vector<Vehicle> getAdj();
-    double getDistance();
-    void setDistance (double dist);
+    int getCapacity();
+    void setCapacity (int capacity);
     int getPred();
     void setPred( int pred);
     bool getVisited();

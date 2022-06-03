@@ -18,4 +18,4 @@ add_executable(DA_Project
         TravelAgency/Graph.h
         Menu/Menu.cpp
         Menu/Menu.h
-        TravelAgency/minHeap.h)
+        TravelAgency/maxHeap.h)

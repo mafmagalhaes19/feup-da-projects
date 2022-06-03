@@ -16,12 +16,12 @@ vector<Vehicle> Local::getAdj() {
     return _adj;
 }
 
-double Local::getDistance() {
-    return _dist;
+double Local::getCapacity() {
+    return _capacity;
 }
 
-void Local::setDistance(double dist) {
-    _dist = dist;
+void Local::setCapacity(int capacity) {
+    _capacity = capacity;
 }
 
 int Local::getPred() {

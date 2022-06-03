@@ -9,7 +9,7 @@
 #include <list>
 
 #include "Local.h"
-#include "minHeap.h"
+#include "maxHeap.h"
 
 using namespace std;
 
@@ -24,7 +24,7 @@ public:
     explicit Graph(int size);
     void addVehicle(Vehicle vehicle);
 
-    double dijkstra_distance(int a, int b);
+    int dijkstraMaximumCapacity(int a, int b);
     void dijkstra(int s);
     list<int> dijkstra_path(int a, int b);
     void printDijkstra(int source, int dest);
