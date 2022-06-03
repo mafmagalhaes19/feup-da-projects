@@ -24,13 +24,13 @@ void Graph::addVehicle(Vehicle vehicle) {
 }
 
 
-double Graph::dijkstra_distance(int a, int b){
+int Graph::dijkstraMaximumCapacity(int a, int b){
     dijkstra(a);
     //There is no path from a to b
-    if(_locals[b-1].getDistance() == INF){
+    if(_locals[b-1].getCapacity() == INF){
         return -1;
     }
-    return _locals[b-1].getDistance();
+    return _locals[b-1].getCapacity();
 }
 
 
@@ -51,19 +51,21 @@ list<int> Graph::dijkstra_path(int a, int b){
 
 void Graph::dijkstra(int s){
     //Priority Queue (n - number of maximum elements, -1 - returned value if key not found)
-    MinHeap<int, int> q(_size, -1);
+    MaxHeap<int, int> q(_size, -1);
     for(int v=0; v<_size; v++){
-        _locals[v-1].setDistance(INF);
-        q.insert(v, INF);
-        _locals[v-1].setVisited(false);
+        _locals[v].setCapacity(0);
+        q.insert(v, 0);
+        _locals[v].setVisited(false);
     }
-    _locals[s-1].setDistance(0);
+    _locals[s-1].setCapacity(INF);
     //Changes the value of s in the priority queue
-    q.decreaseKey(s, 0);
+    q.increaseKey(s, INF);
+    //The "father" of the first node is the node itself
     _locals[s-1].setPred(s);
     while(q.getSize()>0){
         //Removes the key with the smallest value
-        int u = q.removeMin();
+        int u = q.removeMax();
+        //FIX HERE
         // cout << "Node " << u << "with dist = " << nodes[u].dist << endl;
         _locals[u-1].setVisited(true);
         //Cycle that goes through all adjcent nodes of u
@@ -81,8 +83,8 @@ void Graph::dijkstra(int s){
 }
 
 void Graph::printDijkstra(int source, int dest) {
-    double distance = dijkstra_distance(source, dest);
-    if(distance == -1){
+    int maximumCapacity = dijkstraMaximumCapacity(source, dest);
+    if(maximumCapacity == 0){
         cout << "Nao existe nenhuma ligacao possivel entre a origem e o destino que escolheu." << endl;
         return;
     }
