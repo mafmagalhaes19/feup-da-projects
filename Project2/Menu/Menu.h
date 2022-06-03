@@ -20,6 +20,7 @@ public:
     unsigned mainMenu();
     void SceneOneMenu();
     void SceneTwoMenu();
+    void helperSetGraph();
 
 };
 

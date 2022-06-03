@@ -2,7 +2,6 @@
 #include "Graph.h"
 
 #include <iostream>
-#include <utility>
 #include <algorithm>
 #include <climits>
 
@@ -35,9 +34,9 @@ int Graph::dijkstraMaximumCapacity(int a, int b){
 
 
 list<int> Graph::dijkstra_path(int a, int b){
-    dijkstra(a);
+    //dijkstra(a);
     list<int> path;
-    if(_locals[b-1].getDistance() == INF){
+    if(_locals[b-1].getCapacity() == INF){
         return path;
     }
     path.push_back(b);
@@ -63,19 +62,25 @@ void Graph::dijkstra(int s){
     //The "father" of the first node is the node itself
     _locals[s-1].setPred(s);
     while(q.getSize()>0){
-        //Removes the key with the smallest value
+        //Removes the key with the biggest value
         int u = q.removeMax();
-        //FIX HERE
-        // cout << "Node " << u << "with dist = " << nodes[u].dist << endl;
+        // cout << "Local " << u << "with capacity = " << _locals[u-1].getCapacity() << endl;
         _locals[u-1].setVisited(true);
         //Cycle that goes through all adjcent nodes of u
         for(auto e : _locals[u-1].getAdj()){
             int v = e.getDestination();
-            double w = e.getDuration();
-            if(!_locals[v-1].getVisited() && (_locals[u-1].getDistance() + w < _locals[v-1].getDistance()) ){
-                _locals[v-1].setDistance(_locals[u-1].getDistance() + w);
+            double w = e.getCapacity();
+            if(!_locals[v-1].getVisited() && (_locals[u-1].getCapacity() < w) && (_locals[u-1].getCapacity() > _locals[v-1].getCapacity())){
+                _locals[v-1].setCapacity(_locals[u-1].getCapacity());
                 //Queue needs to have the same values that are stored in nodes[].dist
-                q.decreaseKey(v, _locals[v-1].getDistance());
+                q.increaseKey(v, _locals[v-1].getCapacity());
+                _locals[v-1].setPred(u);
+            }
+
+            else if(!_locals[v-1].getVisited() && (_locals[u-1].getCapacity() > w) && (w > _locals[v-1].getCapacity())){
+                _locals[v-1].setCapacity(w);
+                //Queue needs to have the same values that are stored in nodes[].dist
+                q.increaseKey(v, _locals[v-1].getCapacity());
                 _locals[v-1].setPred(u);
             }
         }
@@ -84,27 +89,27 @@ void Graph::dijkstra(int s){
 
 void Graph::printDijkstra(int source, int dest) {
     int maximumCapacity = dijkstraMaximumCapacity(source, dest);
-    if(maximumCapacity == 0){
+    if(maximumCapacity == INF){
         cout << "Nao existe nenhuma ligacao possivel entre a origem e o destino que escolheu." << endl;
         return;
     }
     list<int> path = dijkstra_path(source, dest);
 
     // printing path from source to destination
-    cout << "O caminho que tem de fazer e: " << endl;
+    cout << "O caminho que o grupo tem de fazer e: " << endl;
     list<int>::iterator it = path.begin();
     int aux = path.size();
     while(it != path.end()){
         if(aux>1){
-            //cout << _locals[*it].paragem.getCode()  << " - " << nodes[*it].paragem.getName() << " --> ";
+            cout << *it  << " --> ";
         }
         else{
-            //cout << nodes[*it].paragem.getCode()  << " - " << nodes[*it].paragem.getName() <<endl;
+            cout << *it << endl;
         }
         it++;
         aux--;
     }
 
-    // distance from source is in distance array
-    cout << "A distancia total e de " << distance << " km." << endl;
+    // Capacity from source is in distance array
+    cout << "A capacidade maxima do grupo e de " << maximumCapacity << " pessoas." << endl;
 }

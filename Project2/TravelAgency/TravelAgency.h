@@ -13,12 +13,15 @@ class TravelAgency {
 private:
     //Each dataset has a graph representing it
     vector<Graph> _graphs;
+    int _chosenGraph;
 
 public:
     void readDatasets();
     void readOneDataset(string filename);
 
-    void sceneOneOne();
+    void setGraph(int chosenGraph);
+
+    void sceneOneOne(int source, int destination);
     void sceneOneTwo();
 
     void sceneTwoOne();
