@@ -39,6 +39,7 @@ public:
     void insert(const K& key, const V& value);      // Insert (key, value) on the heap
     void increaseKey(const K& key, const V& value); // Increase value of key
     K removeMax(); // remove and return key with the biggest value
+    bool empty(); //returns true if heap is empty;
 };
 
 // ----------------------------------------------
@@ -57,7 +58,7 @@ template <class K, class V>
 void MaxHeap<K,V>::downHeap(int i) {
     while (LEFT(i) <= size) { // while within heap limits
         int j = LEFT(i);
-        if (RIGHT(i)>=size && a[RIGHT(i)].value > a[j].value) j = RIGHT(i); // choose bigger child
+        if (RIGHT(i)<=size && a[RIGHT(i)].value > a[j].value) j = RIGHT(i); // choose bigger child
         if (a[i].value > a[j].value) break;   // node already bigger than children, stop
         swap(i, j);                    // otherwise, swap with smaller child
         i = j;
@@ -121,6 +122,11 @@ K MaxHeap<K,V>::removeMax() {
     a[1] = a[size--];
     downHeap(1);
     return max;
+}
+
+template<class K, class V>
+bool MaxHeap<K,V>::empty(){
+    return this->getSize() == 0;
 }
 
 #endif //DA_PROJECT_MAXHEAP_H

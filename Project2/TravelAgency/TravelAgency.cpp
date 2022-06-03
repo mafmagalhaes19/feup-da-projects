@@ -97,7 +97,6 @@ void TravelAgency::setGraph(int chosenGraph) {
 //1.1. Maximizar a dimensão do grupo e indicar um qualquer encaminhamento.
 void TravelAgency::sceneOneOne(int source, int destination) {
     cout << "1.1" << endl;
-    cout << "Graph: " << _chosenGraph << endl;
     _graphs[_chosenGraph-1].printDijkstra(source, destination);
 }
 
