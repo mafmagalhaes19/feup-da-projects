@@ -6,8 +6,10 @@
 #define DA_PROJECT_GRAPH_H
 
 #include <vector>
+#include <list>
 
 #include "Local.h"
+#include "minHeap.h"
 
 using namespace std;
 
@@ -21,6 +23,11 @@ private:
 public:
     explicit Graph(int size);
     void addVehicle(Vehicle vehicle);
+
+    double dijkstra_distance(int a, int b);
+    void dijkstra(int s);
+    list<int> dijkstra_path(int a, int b);
+    void printDijkstra(int source, int dest);
 
 };
 

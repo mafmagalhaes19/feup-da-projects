@@ -107,18 +107,18 @@ void Menu::SceneOneMenu() {
         switch (input)
         {
             case 1:
-                //Scene 1
+                //Scene 1.1
                 _travelAgency.sceneOneOne();
                 break;
             case 2:
-                //Scene 2
+                //Scene 1.2
                 _travelAgency.sceneOneTwo();
                 break;
             case 3:
                 break;
             default:
                 input = -1;
-                cout << "Input invalido, por favor tente outra vez:" << endl;
+                cout << "Input invalido, por favor tente outra vez: " << endl;
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 cin.clear();
                 break;
@@ -152,10 +152,10 @@ void Menu::SceneTwoMenu() {
 
     cout << "CENARIO 2\n"
          << "1. Determinar um encaminhamento para um grupo\n"
-         << "2. Corrigir um encaminhamento\n"
-         << "3. Determinar a dimensao maxima de um grupo e um encaminhamento\n"
-         << "4. Determinar quando um grupo se reune novamente no destino, no minimo\n"
-         << "5. Indicar o tempo maximo de espera e os locais em que haveria elementos que esperam esse tempo\n"
+         << "2. Corrigir um encaminhamento para que a dimensao do grupo seja um numero de unidades exato\n"
+         << "3. Determinar a dimensao maxima de um grupo e o respetivo encaminhamento\n"
+         << "4. Partindo de um grafo aciclico, determinar quando e que um grupo se reune novamente no destino, no minimo\n"
+         << "5. Indicar o tempo maximo de espera e os locais em que haveria elementos que esperam esse tempo, utilizando as condicoes de 2.4\n"
          << "6. Sair\n"
          << endl
          <<"Introduza a sua escolha: ";
@@ -179,19 +179,22 @@ void Menu::SceneTwoMenu() {
                 _travelAgency.sceneTwoTwo();
                 break;
             case 3:
+                //Scene 2.3
                 _travelAgency.sceneTwoThree();
                 break;
             case 4:
+                //Scene 2.4
                 _travelAgency.sceneTwoFour();
                 break;
             case 5:
+                //Scene 2.5
                 _travelAgency.sceneTwoFive();
                 break;
             case 6:
                 break;
             default:
                 input = -1;
-                cout << "Input invalido, por favor tente outra vez:" << endl;
+                cout << "Input invalido, por favor tente outra vez: " << endl;
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 cin.clear();
                 break;
@@ -202,10 +205,10 @@ void Menu::SceneTwoMenu() {
 
             cout << "CENARIO 2\n"
                  << "1. Determinar um encaminhamento para um grupo\n"
-                 << "2. Corrigir um encaminhamento\n"
-                 << "3. Determinar a dimensao maxima de um grupo e um encaminhamento\n"
-                 << "4. Determinar quando um grupo se reune novamente no destino, no minimo\n"
-                 << "5. Indicar o tempo maximo de espera e os locais em que haveria elementos que esperam esse tempo\n"
+                 << "2. Corrigir um encaminhamento para que a dimensao do grupo seja um numero de unidades exato\n"
+                 << "3. Determinar a dimensao maxima de um grupo e o respetivo encaminhamento\n"
+                 << "4. Partindo de um grafo aciclico, determinar quando e que um grupo se reune novamente no destino, no minimo\n"
+                 << "5. Indicar o tempo maximo de espera e os locais em que haveria elementos que esperam esse tempo, utilizando as condicoes de 2.4\n"
                  << "6. Sair\n"
                  << endl
                  <<"Introduza a sua escolha: ";

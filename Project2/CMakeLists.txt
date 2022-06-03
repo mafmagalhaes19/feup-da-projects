@@ -1,5 +1,5 @@
 
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.20)
 project(DA_Project)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -18,4 +18,4 @@ add_executable(DA_Project
         TravelAgency/Graph.h
         Menu/Menu.cpp
         Menu/Menu.h
-        )
+        TravelAgency/minHeap.h)
