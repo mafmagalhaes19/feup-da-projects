@@ -16,7 +16,7 @@ vector<Vehicle> Local::getAdj() {
     return _adj;
 }
 
-double Local::getCapacity() {
+int Local::getCapacity() {
     return _capacity;
 }
 
