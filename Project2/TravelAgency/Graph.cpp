@@ -55,21 +55,25 @@ void Graph::dijkstra(int s){
         _locals[v].setCapacity(0);
         q.insert(v, 0);
         _locals[v].setVisited(false);
+
     }
     _locals[s-1].setCapacity(INF);
     //Changes the value of s in the priority queue
     q.increaseKey(s, INF);
     //The "father" of the first node is the node itself
     _locals[s-1].setPred(s);
-    while(q.getSize()>0){
+    while(!q.empty()){
         //Removes the key with the biggest value
-        int u = q.removeMax();
+        int u = q.removeMax() + 1;
+
         // cout << "Local " << u << "with capacity = " << _locals[u-1].getCapacity() << endl;
         _locals[u-1].setVisited(true);
+
         //Cycle that goes through all adjcent nodes of u
         for(auto e : _locals[u-1].getAdj()){
             int v = e.getDestination();
             double w = e.getCapacity();
+
             if(!_locals[v-1].getVisited() && (_locals[u-1].getCapacity() < w) && (_locals[u-1].getCapacity() > _locals[v-1].getCapacity())){
                 _locals[v-1].setCapacity(_locals[u-1].getCapacity());
                 //Queue needs to have the same values that are stored in nodes[].dist
