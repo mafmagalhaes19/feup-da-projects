@@ -127,7 +127,6 @@ void Graph::printBFSLessStops( int s, int dest)
         cout << "Nao existe nenhuma ligacao possivel entre a origem e o destino que escolheu." << endl;
         return;
     }
-
     //Vector path stores the shortest path
     vector<Local> path;
     Local crawl = _locals[dest-1];
@@ -135,9 +134,9 @@ void Graph::printBFSLessStops( int s, int dest)
     path.push_back(crawl);
     while (crawl.getId() != source.getId()) {
         path.push_back(_locals[crawl.getPredBFS()-1]);
-        crawl = _locals[crawl.getPredBFS()];
+        crawl = _locals[crawl.getPredBFS()-1];
     }
-    path.push_back(source);
+    //path.push_back(source);
 
     // printing path from source to destination
     cout << "O caminho que tem de fazer e: " << endl;
