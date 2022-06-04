@@ -24,10 +24,15 @@ public:
     explicit Graph(int size);
     void addVehicle(Vehicle vehicle);
 
+    //Dijkstra Algorithm
     int dijkstraMaximumCapacity(int a, int b);
     void dijkstra(int s);
-    list<int> dijkstra_path(int a, int b);
+    vector<int> dijkstra_path(int a, int b);
     void printDijkstra(int source, int dest);
+
+    //BFS Algorithm
+    void printBFSLessStops(int source, int dest);
+    bool bfsLS(int s, int d);
 
 };
 
