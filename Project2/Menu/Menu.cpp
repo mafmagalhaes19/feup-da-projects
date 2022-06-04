@@ -252,7 +252,7 @@ void Menu::helperSetGraph() {
 
         cin >> choice;
         input = validadeInput(choice);
-        if(input <= 10 && input >= 0){
+        if(input <= 10 && input > 0){
             _travelAgency.setGraph(input);
             break;
         }
