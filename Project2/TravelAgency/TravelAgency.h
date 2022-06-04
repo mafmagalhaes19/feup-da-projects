@@ -22,7 +22,7 @@ public:
     void setGraph(int chosenGraph);
 
     void sceneOneOne(int source, int destination);
-    void sceneOneTwo();
+    void sceneOneTwo(int source, int destination);
 
     void sceneTwoOne();
     void sceneTwoTwo();

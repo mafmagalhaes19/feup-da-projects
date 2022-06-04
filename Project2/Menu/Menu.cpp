@@ -83,6 +83,7 @@ unsigned Menu::mainMenu() {
 void Menu::SceneOneMenu() {
     string choice;
     int input;
+    int source, destination;
 
     cout << endl;
     cout << endl;
@@ -109,16 +110,24 @@ void Menu::SceneOneMenu() {
             case 1:
                 //Scene 1.1
                 helperSetGraph();
-                int source, destination;
 
+                source = 0;
+                destination = 0;
                 cout << "Origem: "; cin >> source;
                 cout << endl << "Destino: "; cin >> destination;
+
                 _travelAgency.sceneOneOne(source, destination);
                 break;
             case 2:
                 //Scene 1.2
                 helperSetGraph();
-                _travelAgency.sceneOneTwo();
+
+                source = 0;
+                destination = 0;
+                cout << "Origem: "; cin >> source;
+                cout << endl << "Destino: "; cin >> destination;
+
+                _travelAgency.sceneOneTwo(source, destination);
                 break;
             case 3:
                 break;

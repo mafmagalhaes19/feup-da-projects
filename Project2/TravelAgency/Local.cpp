@@ -16,6 +16,10 @@ vector<Vehicle> Local::getAdj() {
     return _adj;
 }
 
+int Local::getId(){
+    return _id;
+}
+
 int Local::getCapacity() {
     return _capacity;
 }
@@ -41,5 +45,29 @@ void Local::setVisited(bool visited) {
     _visited = visited;
 }
 
+int Local::getTranshipmentBFS() {
+    return _transhipmentBFS;
+}
+
+void Local::setTranshipmentBFS(int transhipmentBFS) {
+    _transhipmentBFS = transhipmentBFS;
+}
+
+int Local::getPredBFS() {
+    return _predBFS;
+}
+
+void Local::setPredBFS(int predBFS) {
+    _predBFS= predBFS;
+}
+
+bool Local::getVisitedBFS() {
+    return _visitedBFS;
+}
+
+
+void Local::setVisitedBFS(bool visitedBFS) {
+    _visitedBFS = visitedBFS;
+}
 
 

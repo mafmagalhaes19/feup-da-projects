@@ -22,11 +22,21 @@ private:
     int _pred;
     bool _visited;
 
+    //BFS algorithm
+    int _transhipmentBFS;
+    bool _visitedBFS;
+    int _predBFS;
+
+
 public:
     explicit Local(int id);
     void addAdjacentVehicle(Vehicle vehicle);
 
     vector<Vehicle> getAdj();
+
+    int getId();
+
+    //Dijkstra Algorithm
     int getCapacity();
     void setCapacity (int capacity);
     int getPred();
@@ -34,6 +44,13 @@ public:
     bool getVisited();
     void setVisited(bool visited);
 
+    //BFS Algorithm
+    int getTranshipmentBFS();
+    void setTranshipmentBFS (int transhipmentBFS);
+    int getPredBFS();
+    void setPredBFS( int predBFS);
+    bool getVisitedBFS();
+    void setVisitedBFS(bool visited);
 
 };
 

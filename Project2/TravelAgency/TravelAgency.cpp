@@ -96,12 +96,20 @@ void TravelAgency::setGraph(int chosenGraph) {
 
 //1.1. Maximizar a dimensão do grupo e indicar um qualquer encaminhamento.
 void TravelAgency::sceneOneOne(int source, int destination) {
+    cout << endl;
     cout << "1.1" << endl;
     _graphs[_chosenGraph-1].printDijkstra(source, destination);
 }
 
-void TravelAgency::sceneOneTwo() {
+void TravelAgency::sceneOneTwo(int source, int destination) {
+    cout << endl;
     cout << "1.2" << endl;
+    cout << "MAXIMIZAR A DIMENSAO DO GRUPO" << endl;
+    _graphs[_chosenGraph-1].printDijkstra(source, destination);
+    cout << endl;
+    cout << "MINIMIZAR O NUMERO DE TRANSBORDOS" << endl;
+    //_graphs[_chosenGraph-1].printBFSLessStops(source, destination);
+    cout << endl;
 }
 
 void TravelAgency::sceneTwoOne() {
