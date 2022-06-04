@@ -244,61 +244,24 @@ void Menu::helperSetGraph() {
     string choice;
     int input;
 
-    cout << endl;
-    cout << endl;
+
+    while(true){
+        cout << endl;
+        cout << endl;
+        cout << "Escolha o grafo a utilizar (entre 1 a 10): ";
+
+        cin >> choice;
+        input = validadeInput(choice);
+        if(input <= 10 && input >= 0){
+            _travelAgency.setGraph(input);
+            break;
+        }
+        cout << "Input invalido, por favor tente outra vez." << endl;
 
 
-
-    cout << "Escolha o grafo a utilizar (entre 1 a 10): ";
-
-    cin >> choice;
-    switch (input)
-    {
-        case 1:
-            //Graph 1
-            _travelAgency.setGraph(1);
-            break;
-        case 2:
-            //Graph 2
-            _travelAgency.setGraph(2);
-            break;
-        case 3:
-            //Graph 3
-            _travelAgency.setGraph(3);
-            break;
-        case 4:
-            //Graph 4
-            _travelAgency.setGraph(4);
-            break;
-        case 5:
-            //Graph 5
-            _travelAgency.setGraph(5);
-            break;
-        case 6:
-            //Graph 6
-            _travelAgency.setGraph(6);
-            break;
-        case 7:
-            //Graph 7
-            _travelAgency.setGraph(7);
-            break;
-        case 8:
-            //Graph 8
-            _travelAgency.setGraph(8);
-            break;
-        case 9:
-            //Graph 9
-            _travelAgency.setGraph(9);
-            break;
-        case 10:
-            //Graph 10
-            _travelAgency.setGraph(10);
-            break;
-        default:
-            cout << "Input invalido, por favor tente outra vez." << endl;
-            helperSetGraph();
-            break;
+        break;
     }
+
 }
 
 

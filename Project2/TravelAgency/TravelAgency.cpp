@@ -108,7 +108,7 @@ void TravelAgency::sceneOneTwo(int source, int destination) {
     _graphs[_chosenGraph-1].printDijkstra(source, destination);
     cout << endl;
     cout << "MINIMIZAR O NUMERO DE TRANSBORDOS" << endl;
-    //_graphs[_chosenGraph-1].printBFSLessStops(source, destination);
+    _graphs[_chosenGraph-1].printBFSLessStops(source, destination);
     cout << endl;
 }
 
