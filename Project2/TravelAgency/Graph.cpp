@@ -55,7 +55,7 @@ void Graph::dijkstra(int s){
     for(int v=0; v<_size; v++){
         _locals[v].setCapacity(0);
         q.insert(v, 0);
-        _locals[v].setVisited(false);
+        //_locals[v].setVisited(false);
         _locals[v].setPred(0);
     }
     _locals[s-1].setCapacity(INF);
@@ -69,19 +69,19 @@ void Graph::dijkstra(int s){
         int u = q.removeMax() + 1;
 
         //cout << "Local " << u << "with capacity = " << _locals[u-1].getCapacity() << endl;
-        _locals[u-1].setVisited(true);
+        //_locals[u-1].setVisited(true);
 
         //Cycle that goes through all adjcent nodes of u
         for(auto e : _locals[u-1].getAdj()){
             int v = e.getDestination();
             int w = e.getCapacity();
-            /*if(min(_locals[u-1].getCapacity(), w) > _locals[v-1].getCapacity()) {
+            if(min(_locals[u-1].getCapacity(), w) > _locals[v-1].getCapacity()) {
                 _locals[v-1].setCapacity(min(_locals[u-1].getCapacity(), w));
                 q.increaseKey(v, _locals[v-1].getCapacity());
                 _locals[v-1].setPred(u);
-            }*/
+            }
 
-            if(!_locals[v-1].getVisited() && (_locals[u-1].getCapacity() < w) && (_locals[u-1].getCapacity() > _locals[v-1].getCapacity())){
+            /*if(!_locals[v-1].getVisited() && (_locals[u-1].getCapacity() < w) && (_locals[u-1].getCapacity() > _locals[v-1].getCapacity())){
                 _locals[v-1].setCapacity(_locals[u-1].getCapacity());
                 //Queue needs to have the same values that are stored in _locals[].dist
                 q.increaseKey(v, _locals[v-1].getCapacity());
@@ -93,7 +93,7 @@ void Graph::dijkstra(int s){
                 //Queue needs to have the same values that are stored in _locals[].dist
                 q.increaseKey(v, _locals[v-1].getCapacity());
                 _locals[v-1].setPred(u);
-            }
+            }*/
         }
     }
 }
