@@ -104,11 +104,12 @@ void Graph::printDijkstra(int source, int dest) {
     }
 
     // Final capacity is given by maximumCapacity of the graph
-    cout << "A capacidade maxima do grupo e de " << maximumCapacity << " pessoas." << endl;
+    cout << "A capacidade maxima do grupo e de " << maximumCapacity << " pessoas, com " << path.size() -1 << " transbordos." << endl;
 }
 
 void Graph::printBFSLessStops( int s, int dest)
 {
+    int maximumCapacity = INF;
     if (!bfsLS(s, dest)) {
         cout << "Nao existe nenhuma ligacao possivel entre a origem e o destino que escolheu." << endl;
         return;
@@ -127,6 +128,10 @@ void Graph::printBFSLessStops( int s, int dest)
     // printing path from source to destination
     cout << "O caminho que tem de fazer e: " << endl;
     for(int i = path.size() - 1 ; i >= 0; i--){
+        if(path[i].getCapacity() < maximumCapacity){
+            maximumCapacity = path[i].getCapacity();
+        }
+
         if(i != 0 ){
             cout << path[i].getId()  << " --> ";
         }
@@ -135,7 +140,7 @@ void Graph::printBFSLessStops( int s, int dest)
         }
     }
 
-    cout << "O numero total de transbordos e de " << path.size() - 1 << "." << endl;
+    cout << "A capacidade maxima do grupo e de " << maximumCapacity << " pessoas, com " << path.size() - 1 << " transbordos." << endl;
 }
 
 bool Graph::bfsLS(int s, int d) {

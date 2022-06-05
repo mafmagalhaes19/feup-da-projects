@@ -25,8 +25,7 @@ unsigned Menu::mainMenu() {
     cout << endl;
     cout << endl;
 
-
-
+    cout << "------------------------------------------------------------------------------------------------------------------------\n";
     cout << "MENU PRINCIPAL\n"
          << "1. Cenario 1 - Grupos que nao se separam\n"
          << "2. Cenario 2 - Grupos que podem separar-se\n"
@@ -64,7 +63,7 @@ unsigned Menu::mainMenu() {
         if(input != -1 && input != 3){
             cout << endl;
             cout << endl;
-
+            cout << "------------------------------------------------------------------------------------------------------------------------\n";
             cout << "MENU PRINCIPAL\n"
                  << "1. Cenario 1 - Grupos que nao se separam\n"
                  << "2. Cenario 2 - Grupos que podem separar-se\n"
@@ -88,8 +87,7 @@ void Menu::SceneOneMenu() {
     cout << endl;
     cout << endl;
 
-
-
+    cout << "------------------------------------------------------------------------------------------------------------------------\n";
     cout << "CENARIO 1\n"
          << "1. Maximizar a dimensao do grupo\n"
          << "2. Maximizar a dimensao do grupo e minimizar o numero de transbordos\n"
@@ -114,7 +112,7 @@ void Menu::SceneOneMenu() {
                 source = 0;
                 destination = 0;
                 cout << "Origem: "; cin >> source;
-                cout << endl << "Destino: "; cin >> destination;
+                cout << "Destino: "; cin >> destination;
 
                 _travelAgency.sceneOneOne(source, destination);
                 break;
@@ -125,7 +123,7 @@ void Menu::SceneOneMenu() {
                 source = 0;
                 destination = 0;
                 cout << "Origem: "; cin >> source;
-                cout << endl << "Destino: "; cin >> destination;
+                cout << "Destino: "; cin >> destination;
 
                 _travelAgency.sceneOneTwo(source, destination);
                 break;
@@ -142,6 +140,7 @@ void Menu::SceneOneMenu() {
             cout << endl;
             cout << endl;
 
+            cout << "------------------------------------------------------------------------------------------------------------------------\n";
             cout << "CENARIO 1\n"
                  << "1. Maximizar a dimensao do grupo\n"
                  << "2. Maximizar a dimensao do grupo e minimizar o numero de transbordos\n"
@@ -163,8 +162,7 @@ void Menu::SceneTwoMenu() {
     cout << endl;
     cout << endl;
 
-
-
+    cout << "------------------------------------------------------------------------------------------------------------------------\n";
     cout << "CENARIO 2\n"
          << "1. Determinar um encaminhamento para um grupo\n"
          << "2. Corrigir um encaminhamento para que a dimensao do grupo seja um numero de unidades exato\n"
@@ -223,6 +221,7 @@ void Menu::SceneTwoMenu() {
             cout << endl;
             cout << endl;
 
+            cout << "------------------------------------------------------------------------------------------------------------------------\n";
             cout << "CENARIO 2\n"
                  << "1. Determinar um encaminhamento para um grupo\n"
                  << "2. Corrigir um encaminhamento para que a dimensao do grupo seja um numero de unidades exato\n"
@@ -247,10 +246,10 @@ void Menu::helperSetGraph() {
 
     while(true){
         cout << endl;
-        cout << endl;
         cout << "Escolha o grafo a utilizar (entre 1 a 10): ";
 
         cin >> choice;
+        cout << endl;
         input = validadeInput(choice);
         if(input <= 11 && input > 0){
             _travelAgency.setGraph(input);
