@@ -7,7 +7,7 @@ using namespace std;
 Menu::Menu(TravelAgency travelAgency): _travelAgency(travelAgency){}
 
 int Menu::validadeInput(string input) {
-    if(input.length() == 1 && isdigit(input[0])){
+    if(input.length() >= 1 && isdigit(input[0])){
         stringstream ss(input);
         int number;
         ss >> number;
@@ -252,7 +252,7 @@ void Menu::helperSetGraph() {
 
         cin >> choice;
         input = validadeInput(choice);
-        if(input <= 10 && input > 0){
+        if(input <= 11 && input > 0){
             _travelAgency.setGraph(input);
             break;
         }

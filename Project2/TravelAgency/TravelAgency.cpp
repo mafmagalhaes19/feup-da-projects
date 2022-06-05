@@ -41,6 +41,9 @@ void TravelAgency::readDatasets() {
     string  path10 = "../Tests_B/in10_b.txt";
     readOneDataset(path10);
 
+    string  path11 = "../Tests_B/in11.txt";
+    readOneDataset(path11);
+
 }
 
 void TravelAgency::readOneDataset(string filename) {
