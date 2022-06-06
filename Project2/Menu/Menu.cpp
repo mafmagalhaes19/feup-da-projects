@@ -159,7 +159,7 @@ void Menu::SceneTwoMenu() {
     string choice;
     int input;
     int source, destination;
-    int groupDimension;
+    int groupDimension, groupAdded;
 
     cout << endl;
     cout << endl;
@@ -186,7 +186,7 @@ void Menu::SceneTwoMenu() {
         switch (input)
         {
             case 1:
-                //Scene 1.1
+                //Scene 2.1
                 helperSetGraph();
 
                 groupDimension = 0;
@@ -197,17 +197,38 @@ void Menu::SceneTwoMenu() {
                 cout << "Destino: "; cin >> destination;
                 cout << "Numero total de elementos do grupo: "; cin >> groupDimension;
 
-                _travelAgency.sceneTwoOne(source, destination, groupDimension);
+                _travelAgency.sceneTwoOne(source, destination, groupDimension, false, 0);
                 break;
             case 2:
-                //Scene 2.2
+                //Scene 2.1
                 helperSetGraph();
-                _travelAgency.sceneTwoTwo();
+
+                groupDimension = 0;
+
+                source = 0;
+                destination = 0;
+                cout << "Origem: "; cin >> source;
+                cout << "Destino: "; cin >> destination;
+                cout << "Numero total de elementos do grupo: "; cin >> groupDimension;
+
+                //Scene 2.2
+                groupAdded = 0;
+
+                cout << "Numero de pessoas adicional: "; cin >> groupAdded;
+
+                _travelAgency.sceneTwoOne(source, destination, groupDimension, true, groupAdded);
+
                 break;
             case 3:
                 //Scene 2.3
                 helperSetGraph();
-                _travelAgency.sceneTwoThree();
+
+                source = 0;
+                destination = 0;
+                cout << "Origem: "; cin >> source;
+                cout << "Destino: "; cin >> destination;
+
+                _travelAgency.sceneTwoThree(source, destination);
                 break;
             case 4:
                 //Scene 2.4

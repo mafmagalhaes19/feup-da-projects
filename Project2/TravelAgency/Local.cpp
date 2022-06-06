@@ -94,12 +94,18 @@ void Local::setPredFF(int predFF) {
     _predFF = predFF;
 }
 
-Vehicle Local::getPredVehicleFF() {
-    return _predVehicle;
+Vehicle * Local::getPredVehicleFF() {
+    return &_predVehicle;
 }
 
 void Local::setPredVehicleFF(Vehicle predVehicleFF) {
     _predVehicle = predVehicleFF;
 }
 
-
+void Local::setVehicleActiveFF(int source, int destination , bool activeFF) {
+    for(int i = 0; i < _adj.size(); i++){
+        if(_adj[i].getSource() == source && _adj[i].getDestination() == destination){
+            _adj[i].setActiveFF(activeFF);
+        }
+    }
+}

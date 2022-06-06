@@ -177,7 +177,7 @@ bool Graph::comparePathsFF(PathFordFulkerson path1, PathFordFulkerson path2) {
     return (path1.capacity > path2.capacity);
 }
 
-bool Graph::findAugmentationPath(int source, int destination, vector<Vehicle> vehicles){
+bool Graph::findAugmentationPath(int source, int destination, vector<Vehicle*> &vehicles){
     bool hasFoundAPath = false;
     Vehicle vehicle;
     vehicle = Vehicle(0, 0, 0, 0);
@@ -226,7 +226,7 @@ bool Graph::findAugmentationPath(int source, int destination, vector<Vehicle> ve
 }
 
 void Graph::fordFulkerson(int source, int destination) {
-    vector<Vehicle> vehicles;
+    vector<Vehicle*> vehicles;
     for(int i = 0; i < _size; i++){
         _locals[i].setCapacityFF(0);
         for(auto e: _locals[i].getAdj()){
@@ -236,27 +236,30 @@ void Graph::fordFulkerson(int source, int destination) {
     while(findAugmentationPath(source, destination, vehicles)){
         int capacity = INF;
         //Minimum global capacity
-        for(Vehicle vehicle: vehicles){
-            capacity = min(capacity, vehicle.getCapacity());
+        for(auto vehicle: vehicles){
+            capacity = min(capacity, vehicle->getCapacity());
         }
         PathFordFulkerson pathFF;
 
         //Residual capacity in the graph
-        for(Vehicle vehicle: vehicles){
-            if(vehicle.getFlow() + capacity > vehicle.getCapacity()){
-                capacity -= vehicle.getFlow() + capacity - vehicle.getCapacity();
+        for(auto vehicle: vehicles){
+            if(vehicle->getFlow() + capacity > vehicle->getCapacity()){
+                capacity -= vehicle->getFlow() + capacity - vehicle->getCapacity();
             }
         }
         pathFF.capacity = capacity;
 
         //Final path
-        for(Vehicle vehicle: vehicles){
-            vehicle.setFlow(vehicle.getFlow() + capacity);
-            if(vehicle.getFlow() == vehicle.getCapacity()){
-                vehicle.setActiveFF(false);
+        for(auto vehicle: vehicles){
+            vehicle->setFlow(vehicle->getFlow() + capacity);
+            if(vehicle->getFlow() == vehicle->getCapacity()){
+                vehicle->setActiveFF(false);
+                int vehicleSource = vehicle->getSource();
+                int vehicleDestination = vehicle->getDestination();
+                _locals[vehicleSource-1].setVehicleActiveFF(vehicleSource, vehicleDestination, false);
             }
-            pathFF.path.push_back({vehicle.getDuration(), vehicle.getDestination()});
-            pathFF.duration += vehicle.getDuration();
+            pathFF.path.push_back({vehicle->getDuration(), vehicle->getDestination()});
+            pathFF.duration += vehicle->getDuration();
         }
         pathFF.path.push_back({0, 1});
         //pathFF.path.push_back({0, source});
@@ -266,18 +269,18 @@ void Graph::fordFulkerson(int source, int destination) {
 
 }
 
-void Graph::printFordFulkerson(int source, int destination, int groupDimension) {
+void Graph::printFordFulkerson(int source, int destination, int groupDimension, bool isSceneTwoTwo, int groupAdded) {
     _pathsFF.clear();
 
     fordFulkerson(source, destination);
 
     int maxElements = 0;
-    for(PathFordFulkerson pathFF: _pathsFF){
-        maxElements += pathFF.capacity;
+    for(int i = 0; i < _pathsFF.size(); i++){
+        maxElements += _pathsFF[i].capacity;
     }
 
     if(maxElements < groupDimension){
-        cout << "Nao existe ligacao possivel entre a origem e a ligacao que escolheu para o numero de pessoas escolhidas (" << groupDimension << ")." << endl;
+        cout << "Nao existe ligacao possivel entre a origem e o destino que escolheu para o numero de pessoas escolhidas (" << groupDimension << ")." << endl;
         cout << "A capacidade maxima do grupo para este caminho e de: " << maxElements <<"." << endl;
         return;
     }
@@ -287,24 +290,92 @@ void Graph::printFordFulkerson(int source, int destination, int groupDimension) 
 
     cout << "O caminho que tem de fazer e: " << endl;
 
-    for (int i = 0; i < _pathsFF.size(); i++){
-        printPathFF(_pathsFF[i], source);
+    int remainingSpots = groupDimension;
+
+    for(int i = 0; i < _pathsFF.size(); i++ ){
+        if(remainingSpots == 0){
+            break;
+        }
+        printPathFF(_pathsFF[i], source, remainingSpots);
+
+    }
+
+    if(isSceneTwoTwo){
+        cout << endl;
+        cout << "2.2" << endl;
+        cout << "Grupo adicional" << endl;
+        cout << "O caminho que tem de fazer e: " << endl;
+        remainingSpots += groupAdded;
+        for (int i = 0; i < _pathsFF.size(); i++){
+            if(remainingSpots == 0){
+                break;
+            }
+            printPathFF(_pathsFF[i], source, remainingSpots);
+        }
+
     }
 
 }
 
-void Graph::printPathFF(PathFordFulkerson pathFF, int source) {
+void Graph::printPathFF(PathFordFulkerson pathFF, int source, int &remainingSpots) {
     int capacity = INF;
     for (int i =  pathFF.path.size() - 1; i >= 0; i--){
-        capacity = min(capacity, pathFF.capacity);
-        int next = pathFF.path[i].second;
-        if(i == 0){
-            cout << next << " (capacidade =" << capacity << ")." << endl;
+        if(!pathFF.isFull) {
+            capacity = min(capacity, pathFF.capacity);
+            int next = pathFF.path[i].second;
+            if(i == 0){
+                cout << next << " (capacidade = " << capacity << " / utilizados = " << min(remainingSpots, capacity) << ")." << endl;
+                pathFF.capacity -= min(remainingSpots, capacity);
+                remainingSpots -= capacity;
+                //There are still remaining people
+                if(remainingSpots > 0){
+                    pathFF.isFull = true;
+                }
+                //There are no more remaining spots
+                else {
+                    if (remainingSpots == 0){
+                        pathFF.isFull = true;
+                    }
+                    else {
+                        remainingSpots = 0;
+                    }
+                }
+            }
+            else{
+                cout <<next  << " --> ";
+            }
         }
-        else{
-            cout <<next  << " --> ";
-        }
+
     }
 }
 
+void Graph::printFordFulkersonMax(int source, int destination) {
+    _pathsFF.clear();
 
+    fordFulkerson(source, destination);
+
+    int maxElements = 0;
+    for(PathFordFulkerson pathFF: _pathsFF){
+        maxElements += pathFF.capacity;
+    }
+
+    if( _pathsFF.size() == 0){
+        cout << "Nao existe ligacao possivel entre a origem e o destino que escolheu." << endl;
+        return;
+    }
+
+    int remainingSpots = INF;
+    int totalElements = 0;
+
+    cout << "O caminho que tem de fazer e: " << endl;
+
+
+    for (int i = 0; i < _pathsFF.size(); i++){
+        totalElements += _pathsFF[i].capacity;
+        printPathFF(_pathsFF[i], source, remainingSpots);
+
+    }
+    cout << endl;
+    cout <<  "A dimensao maxima do grupo e de " << totalElements << " pessoas." << endl;
+
+}
