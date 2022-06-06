@@ -83,7 +83,7 @@ int Local::getCapacityFF() {
 }
 
 void Local::setCapacityFF(int capacityFF) {
-    _capacityFF;
+    _capacityFF = capacityFF;
 }
 
 int Local::getPredFF() {
