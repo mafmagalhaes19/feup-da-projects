@@ -27,9 +27,14 @@ private:
     bool _visitedBFS;
     int _predBFS;
 
+    //Ford Fulkerson
+    bool _visitedFF;
+    int _capacityFF;
+    int _predFF;
+    Vehicle _predVehicle;
 
 public:
-    explicit Local(int id);
+    explicit Local(int id, Vehicle predVehicle);
     void addAdjacentVehicle(Vehicle vehicle);
 
     vector<Vehicle> getAdj();
@@ -51,6 +56,16 @@ public:
     void setPredBFS( int predBFS);
     bool getVisitedBFS();
     void setVisitedBFS(bool visited);
+
+    //Ford Fulkerson
+    bool getVisitedFF();
+    void setVisitedFF(bool visitedFF);
+    int getCapacityFF();
+    void setCapacityFF(int capacityFF);
+    int getPredFF();
+    void setPredFF( int predFF);
+    Vehicle getPredVehicleFF();
+    void setPredVehicleFF( Vehicle predVehicleFF);
 
 };
 

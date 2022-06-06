@@ -158,6 +158,8 @@ void Menu::SceneOneMenu() {
 void Menu::SceneTwoMenu() {
     string choice;
     int input;
+    int source, destination;
+    int groupDimension;
 
     cout << endl;
     cout << endl;
@@ -184,9 +186,18 @@ void Menu::SceneTwoMenu() {
         switch (input)
         {
             case 1:
-                //Scene 2.1
+                //Scene 1.1
                 helperSetGraph();
-                _travelAgency.sceneTwoOne();
+
+                groupDimension = 0;
+
+                source = 0;
+                destination = 0;
+                cout << "Origem: "; cin >> source;
+                cout << "Destino: "; cin >> destination;
+                cout << "Numero total de elementos do grupo: "; cin >> groupDimension;
+
+                _travelAgency.sceneTwoOne(source, destination, groupDimension);
                 break;
             case 2:
                 //Scene 2.2
@@ -257,8 +268,8 @@ void Menu::helperSetGraph() {
         }
         cout << "Input invalido, por favor tente outra vez." << endl;
 
+        helperSetGraph();
 
-        break;
     }
 
 }

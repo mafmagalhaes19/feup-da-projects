@@ -4,7 +4,7 @@
 
 #include "Local.h"
 
-Local::Local(int id) {
+Local::Local(int id, Vehicle predVehicle) : _predVehicle(predVehicle) {
     _id = id;
 }
 
@@ -68,6 +68,38 @@ bool Local::getVisitedBFS() {
 
 void Local::setVisitedBFS(bool visitedBFS) {
     _visitedBFS = visitedBFS;
+}
+
+bool Local::getVisitedFF() {
+    return _visitedFF;
+}
+
+void Local::setVisitedFF(bool visitedFF) {
+    _visitedFF = visitedFF;
+}
+
+int Local::getCapacityFF() {
+    return _capacityFF;
+}
+
+void Local::setCapacityFF(int capacityFF) {
+    _capacityFF;
+}
+
+int Local::getPredFF() {
+    return _predFF;
+}
+
+void Local::setPredFF(int predFF) {
+    _predFF = predFF;
+}
+
+Vehicle Local::getPredVehicleFF() {
+    return _predVehicle;
+}
+
+void Local::setPredVehicleFF(Vehicle predVehicleFF) {
+    _predVehicle = predVehicleFF;
 }
 
 

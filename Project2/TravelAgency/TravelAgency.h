@@ -24,7 +24,7 @@ public:
     void sceneOneOne(int source, int destination);
     void sceneOneTwo(int source, int destination);
 
-    void sceneTwoOne();
+    void sceneTwoOne(int source, int destination, int groupDimension);
     void sceneTwoTwo();
     void sceneTwoThree();
     void sceneTwoFour();

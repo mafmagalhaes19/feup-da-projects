@@ -13,12 +13,25 @@
 
 using namespace std;
 
+struct PathFordFulkerson{
+    //Vector of a pair of int that contains the duration and the destination of the path
+    vector<pair<int, int>> path;
+    int capacity;
+    int duration = 0;
+};
+
+
 class Graph {
+
 private:
     //Graph size - locals are numbered from 1 to _size
     int _size;
+
     //The list of Locals
     vector<Local> _locals;
+
+    //Ford Fulkerson
+    vector<PathFordFulkerson> _pathsFF;
 
 public:
     explicit Graph(int size);
@@ -33,6 +46,14 @@ public:
     //BFS Algorithm
     void printBFSLessStops(int source, int dest);
     bool bfsLS(int s, int d);
+
+    //Ford Fulkerson
+    bool findAugmentationPath(int source, int destination, vector<Vehicle> vehicles);
+    void fordFulkerson(int source, int destination);
+    static bool comparePathsFF(PathFordFulkerson path1, PathFordFulkerson path2);
+    void printFordFulkerson(int source, int destination, int groupDimension);
+    void printPathFF(PathFordFulkerson pathFF, int source);
+
 
 };
 

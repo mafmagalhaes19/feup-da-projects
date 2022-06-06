@@ -115,8 +115,12 @@ void TravelAgency::sceneOneTwo(int source, int destination) {
     cout << endl;
 }
 
-void TravelAgency::sceneTwoOne() {
+void TravelAgency::sceneTwoOne(int source, int destination, int groupDimension) {
+    cout << endl;
     cout << "2.1" << endl;
+    cout << "CAMINHO A PERCORRER" << endl;
+    _graphs[_chosenGraph-1].printFordFulkerson(source, destination, groupDimension);
+    cout << endl;
 }
 
 void TravelAgency::sceneTwoTwo() {
