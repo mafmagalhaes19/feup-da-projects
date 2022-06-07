@@ -286,7 +286,7 @@ void Menu::helperSetGraph() {
 
     while(true){
         cout << endl;
-        cout << "Escolha o grafo a utilizar (entre 1 a 10): ";
+        cout << "Escolha o grafo a utilizar (entre 1 a 11 - preferencialmente o 11): ";
 
         cin >> choice;
         cout << endl;

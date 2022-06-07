@@ -238,14 +238,14 @@ void Graph::fordFulkerson(int source, int destination) {
         int capacity = INF;
         //Minimum global capacity
         for(auto vehicle: vehicles){
-            capacity = min(capacity, vehicle->getCapacityFF());
+            capacity = min(capacity, vehicle->getCapacity());
         }
         PathFordFulkerson pathFF;
 
         //Residual capacity in the graph
         for(auto vehicle: vehicles){
-            if(vehicle->getFlow() + capacity > vehicle->getCapacityFF()){
-                capacity -= vehicle->getFlow() + capacity - vehicle->getCapacityFF();
+            if(vehicle->getFlow() + capacity > vehicle->getCapacity()){
+                capacity -= vehicle->getFlow() + capacity - vehicle->getCapacity();
             }
         }
         pathFF.capacity = capacity;
