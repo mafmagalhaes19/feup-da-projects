@@ -26,7 +26,7 @@ public:
 
     void sceneTwoOne(int source, int destination, int groupDimension, bool isSceneTwoTwo, int groupAdded);
     void sceneTwoThree(int source, int destination);
-    void sceneTwoFour();
+    void sceneTwoFour(int source, int destination, int groupDimension);
     void sceneTwoFive();
 };
 

@@ -50,3 +50,11 @@ void Vehicle::setActiveFF(bool activeFF) {
     _activeFF = activeFF;
 }
 
+int Vehicle::getCapacityFF() {
+    return _capacityFF;
+}
+
+void Vehicle::setCapacityFF(int capacityFF) {
+    _capacityFF = _capacity;
+}
+

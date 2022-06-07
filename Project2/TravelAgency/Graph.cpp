@@ -191,7 +191,7 @@ bool Graph::findAugmentationPath(int source, int destination, vector<Vehicle*> &
     _locals[source-1].setCapacityFF(INF);
     q.push(source);
 
-    while(!q.empty()){
+    while(!q.empty() ){
         int v = q.front();
         _locals[v-1].setVisitedFF(true);
         q.pop();
@@ -199,7 +199,7 @@ bool Graph::findAugmentationPath(int source, int destination, vector<Vehicle*> &
         for(auto e: _locals[v-1].getAdj()){
             if(e.getActiveFF()){
                 int w = e.getDestination();
-                if(!_locals[w-1].getVisitedFF()){
+                if(!_locals[w-1].getVisitedFF() ){
                     int capacity = min(_locals[v-1].getCapacityFF(), e.getCapacity());
                     if(_locals[w-1].getCapacityFF() < capacity){
                         if(w == destination){
@@ -208,6 +208,7 @@ bool Graph::findAugmentationPath(int source, int destination, vector<Vehicle*> &
                         _locals[w-1].setCapacityFF(capacity);
                         _locals[w-1].setPredVehicleFF(e);
                         _locals[w-1].setPredFF(v);
+
                     }
                     q.push(w);
                 }
@@ -237,32 +238,36 @@ void Graph::fordFulkerson(int source, int destination) {
         int capacity = INF;
         //Minimum global capacity
         for(auto vehicle: vehicles){
-            capacity = min(capacity, vehicle->getCapacity());
+            capacity = min(capacity, vehicle->getCapacityFF());
         }
         PathFordFulkerson pathFF;
 
         //Residual capacity in the graph
         for(auto vehicle: vehicles){
-            if(vehicle->getFlow() + capacity > vehicle->getCapacity()){
-                capacity -= vehicle->getFlow() + capacity - vehicle->getCapacity();
+            if(vehicle->getFlow() + capacity > vehicle->getCapacityFF()){
+                capacity -= vehicle->getFlow() + capacity - vehicle->getCapacityFF();
             }
         }
         pathFF.capacity = capacity;
 
         //Final path
         for(auto vehicle: vehicles){
+            int vehicleSource = vehicle->getSource();
+            int vehicleDestination = vehicle->getDestination();
             vehicle->setFlow(vehicle->getFlow() + capacity);
+
+            int newCapacity = capacity - vehicle->getFlow();
+            _locals[vehicleSource-1].setVehicleCapacityFF(vehicleSource, vehicleDestination, newCapacity);
+
             if(vehicle->getFlow() == vehicle->getCapacity()){
                 vehicle->setActiveFF(false);
-                int vehicleSource = vehicle->getSource();
-                int vehicleDestination = vehicle->getDestination();
                 _locals[vehicleSource-1].setVehicleActiveFF(vehicleSource, vehicleDestination, false);
+                _locals[vehicleSource-1].setVehicleCapacityFF(vehicleSource, vehicleDestination, 0);
             }
             pathFF.path.push_back({vehicle->getDuration(), vehicle->getDestination()});
             pathFF.duration += vehicle->getDuration();
         }
         pathFF.path.push_back({0, 1});
-        //pathFF.path.push_back({0, source});
         _pathsFF.push_back(pathFF);
         vehicles.clear();
     }
@@ -271,6 +276,7 @@ void Graph::fordFulkerson(int source, int destination) {
 
 void Graph::printFordFulkerson(int source, int destination, int groupDimension, bool isSceneTwoTwo, int groupAdded) {
     _pathsFF.clear();
+    _chosenPathsFF.clear();
 
     fordFulkerson(source, destination);
 
@@ -296,6 +302,7 @@ void Graph::printFordFulkerson(int source, int destination, int groupDimension, 
         if(remainingSpots == 0){
             break;
         }
+        _chosenPathsFF.push_back(_pathsFF[i]);
         printPathFF(_pathsFF[i], source, remainingSpots);
 
     }
@@ -310,6 +317,7 @@ void Graph::printFordFulkerson(int source, int destination, int groupDimension, 
             if(remainingSpots == 0){
                 break;
             }
+            _chosenPathsFF.push_back(_pathsFF[i]);
             printPathFF(_pathsFF[i], source, remainingSpots);
         }
 
@@ -317,20 +325,26 @@ void Graph::printFordFulkerson(int source, int destination, int groupDimension, 
 
 }
 
-void Graph::printPathFF(PathFordFulkerson pathFF, int source, int &remainingSpots) {
+void Graph::printPathFF(PathFordFulkerson &pathFF, int source, int &remainingSpots) {
     int capacity = INF;
     for (int i =  pathFF.path.size() - 1; i >= 0; i--){
         if(!pathFF.isFull) {
             capacity = min(capacity, pathFF.capacity);
             int next = pathFF.path[i].second;
+            if(count(pathFF.completePath.begin(), pathFF.completePath.end(), next) == 0){
+                pathFF.completePath.push_back(next);
+            }
             if(i == 0){
                 cout << next << " (capacidade = " << capacity << " / utilizados = " << min(remainingSpots, capacity) << ")." << endl;
+                _totalElementsMax += capacity;
                 pathFF.capacity -= min(remainingSpots, capacity);
                 remainingSpots -= capacity;
+
                 //There are still remaining people
                 if(remainingSpots > 0){
                     pathFF.isFull = true;
                 }
+
                 //There are no more remaining spots
                 else {
                     if (remainingSpots == 0){
@@ -365,17 +379,49 @@ void Graph::printFordFulkersonMax(int source, int destination) {
     }
 
     int remainingSpots = INF;
-    int totalElements = 0;
+    _totalElementsMax = 0;
 
     cout << "O caminho que tem de fazer e: " << endl;
 
 
     for (int i = 0; i < _pathsFF.size(); i++){
-        totalElements += _pathsFF[i].capacity;
+        //totalElements += _pathsFF[i].capacity;
         printPathFF(_pathsFF[i], source, remainingSpots);
 
     }
     cout << endl;
-    cout <<  "A dimensao maxima do grupo e de " << totalElements << " pessoas." << endl;
+    cout <<  "A dimensao maxima do grupo e de " << _totalElementsMax << " pessoas." << endl;
+
+}
+
+void Graph::fastestReunion() {
+    int firstReunion = 0;
+    int mightBeReunion = 0;
+    bool endCycle = false;
+    //The path needs to be equal starting from the end to the reunion point, so we will iterate the chosen paths in reverse order
+    for(int i = 0; i < _chosenPathsFF.size(); i++){
+        if(endCycle){
+            break;
+        }
+        firstReunion = mightBeReunion;
+        mightBeReunion = 0;
+       for(int j = _chosenPathsFF[i].completePath.size() - 1; j >= 0 ; j--){
+           if(mightBeReunion == 0){
+               mightBeReunion = _chosenPathsFF[i].completePath[j];
+           }
+           if(mightBeReunion != _chosenPathsFF[i].completePath[j]){
+               endCycle = true;
+               break;
+           }
+       }
+    }
+
+    if(firstReunion == 0){
+        cout << "Nao ha nenhum local onde o grupo se possa encontrar antes de chegar ao destino." << endl;
+    }
+    else{
+        cout << "O grupo pode encontrar-se no local " << firstReunion << " e continuar junto no resto do percurso" << endl;
+    }
+
 
 }

@@ -16,6 +16,7 @@ using namespace std;
 struct PathFordFulkerson{
     //Vector of a pair of int that contains the duration and the destination of the path
     vector<pair<int, int>> path;
+    vector<int> completePath;
     int capacity;
     int duration = 0;
     bool isFull;
@@ -33,6 +34,10 @@ private:
 
     //Ford Fulkerson
     vector<PathFordFulkerson> _pathsFF;
+
+    vector<PathFordFulkerson> _chosenPathsFF;
+
+    int _totalElementsMax;
 
 public:
     explicit Graph(int size);
@@ -53,8 +58,10 @@ public:
     void fordFulkerson(int source, int destination);
     static bool comparePathsFF(PathFordFulkerson path1, PathFordFulkerson path2);
     void printFordFulkerson(int source, int destination, int groupDimension, bool isSceneTwoTwo, int groupAdded);
-    void printPathFF(PathFordFulkerson pathFF, int source, int &remainingSpots);
+    void printPathFF(PathFordFulkerson &pathFF, int source, int &remainingSpots);
     void printFordFulkersonMax(int source, int destination);
+
+    void fastestReunion();
 
 
 };

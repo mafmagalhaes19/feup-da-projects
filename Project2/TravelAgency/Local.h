@@ -67,6 +67,7 @@ public:
     Vehicle * getPredVehicleFF();
     void setPredVehicleFF( Vehicle predVehicleFF);
     void setVehicleActiveFF(int source, int destination, bool activeFF);
+    void setVehicleCapacityFF(int source, int destination, int capacityFF);
 
 };
 

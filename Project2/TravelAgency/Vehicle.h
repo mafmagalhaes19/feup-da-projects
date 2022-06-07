@@ -13,6 +13,7 @@ private:
 
     //Ford Fulkerson
     int _flow;
+    int _capacityFF;
     bool _activeFF;
 
 public:
@@ -26,6 +27,8 @@ public:
     void setFlow(int flow);
     bool getActiveFF();
     void setActiveFF(bool activeFF);
+    int getCapacityFF();
+    void setCapacityFF(int capacityFF);
 
 };
 

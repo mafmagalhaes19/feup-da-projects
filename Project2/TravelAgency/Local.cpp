@@ -109,3 +109,11 @@ void Local::setVehicleActiveFF(int source, int destination , bool activeFF) {
         }
     }
 }
+
+void Local::setVehicleCapacityFF(int source, int destination , int capacityFF) {
+    for(int i = 0; i < _adj.size(); i++){
+        if(_adj[i].getSource() == source && _adj[i].getDestination() == destination){
+            _adj[i].setCapacityFF(capacityFF);
+        }
+    }
+}

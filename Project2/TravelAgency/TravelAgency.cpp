@@ -130,11 +130,16 @@ void TravelAgency::sceneTwoThree(int source, int destination) {
     cout << endl;
 }
 
-void TravelAgency::sceneTwoFour() {
+void TravelAgency::sceneTwoFour(int source, int destination, int groupDimension) {
+    cout << endl;
     cout << "2.4" << endl;
+    _graphs[_chosenGraph-1].printFordFulkerson(source, destination, groupDimension, false, 0);
+    _graphs[_chosenGraph-1].fastestReunion();
+    cout << endl;
 }
 
 void TravelAgency::sceneTwoFive() {
+    cout << endl;
     cout << "2.5" << endl;
 }
 

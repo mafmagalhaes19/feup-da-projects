@@ -233,7 +233,15 @@ void Menu::SceneTwoMenu() {
             case 4:
                 //Scene 2.4
                 helperSetGraph();
-                _travelAgency.sceneTwoFour();
+                groupDimension = 0;
+
+                source = 0;
+                destination = 0;
+                cout << "Origem: "; cin >> source;
+                cout << "Destino: "; cin >> destination;
+                cout << "Numero total de elementos do grupo: "; cin >> groupDimension;
+
+                _travelAgency.sceneTwoFour(source, destination, groupDimension);
                 break;
             case 5:
                 //Scene 2.5
