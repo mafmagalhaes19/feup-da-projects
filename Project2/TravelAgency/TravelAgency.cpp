@@ -44,6 +44,9 @@ void TravelAgency::readDatasets() {
     string  path11 = "../Tests_B/in11.txt";
     readOneDataset(path11);
 
+    string  path12 = "../Tests_B/in12.txt";
+    readOneDataset(path12);
+
 }
 
 void TravelAgency::readOneDataset(string filename) {
@@ -138,9 +141,13 @@ void TravelAgency::sceneTwoFour(int source, int destination, int groupDimension)
     cout << endl;
 }
 
-void TravelAgency::sceneTwoFive() {
+void TravelAgency::sceneTwoFive(int source, int destination, int groupDimension) {
     cout << endl;
     cout << "2.5" << endl;
+    _graphs[_chosenGraph-1].printFordFulkerson(source, destination, groupDimension, false, 0);
+    int reunion = _graphs[_chosenGraph-1].fastestReunion();
+    _graphs[_chosenGraph-1].maximumWait(reunion);
+    cout << endl;
 }
 
 

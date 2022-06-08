@@ -14,19 +14,22 @@ private:
     //Ford Fulkerson
     int _flow;
     bool _activeFF;
+    int _residual;
 
 public:
     Vehicle();
     Vehicle(int source, int destination, int capacity, int duration);
+
+    //getters
     int getSource();
     int getDestination();
     int getCapacity();
     int getDuration();
-    int getFlow();
+    int getResidual();
+
+    //setters
     void setFlow(int flow);
-    bool getActiveFF();
-    void setActiveFF(bool activeFF);
-    void setCapacity(int capacity);
+    void setResidual(int residual);
 
 };
 

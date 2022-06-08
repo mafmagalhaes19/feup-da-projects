@@ -177,113 +177,97 @@ bool Graph::comparePathsFF(PathFordFulkerson path1, PathFordFulkerson path2) {
     return (path1.capacity > path2.capacity);
 }
 
-bool Graph::findAugmentationPath(int source, int destination, vector<Vehicle*> &vehicles){
-    bool hasFoundAPath = false;
-    Vehicle vehicle;
-    vehicle = Vehicle(0, 0, 0, 0);
+
+bool Graph::bfsFF(int source, int destination) {
     for(int i = 0; i < _size; i++){
-        _locals[i].setCapacityFF(0);
         _locals[i].setVisitedFF(false);
-        _locals[i].setPredFF(0);
-        _locals[i].setPredVehicleFF(vehicle);
     }
+
     queue<int> q;
-    _locals[source-1].setCapacityFF(INF);
     q.push(source);
+    _locals[source-1].setVisitedFF(true);
+    _locals[source-1].setPredFF(-1);
 
-    while(!q.empty() ){
-        int v = q.front();
-        _locals[v-1].setVisitedFF(true);
+    while(!q.empty()){
+        int u = q.front();
         q.pop();
-
-        for(auto e: _locals[v-1].getAdj()){
-            if(e.getActiveFF()){
-                int w = e.getDestination();
-                if(!_locals[w-1].getVisitedFF() ){
-                    int capacity = min(_locals[v-1].getCapacityFF(), e.getCapacity());
-                    if(_locals[w-1].getCapacityFF() < capacity){
-                        if(w == destination){
-                            hasFoundAPath = true;
+        for(int v = 1; v < _size+1; v++){
+            for(auto e: _locals[u-1].getAdj()){
+                if (e.getDestination() == v){
+                    if(!_locals[v - 1].getVisitedFF() && e.getResidual() > 0){
+                        if(v == destination){
+                            _locals[v-1].setPredFF(u);
+                            return true;
                         }
-                        _locals[w-1].setCapacityFF(capacity);
-                        _locals[w-1].setPredVehicleFF(e);
-                        _locals[w-1].setPredFF(v);
-
+                        q.push(v);
+                        _locals[v-1].setPredFF(u);
+                        _locals[v-1].setVisitedFF(true);
                     }
-                    q.push(w);
                 }
             }
         }
     }
-
-    if(!hasFoundAPath){
-        return false;
-    }
-    while(destination != source){
-        vehicles.push_back(_locals[destination-1].getPredVehicleFF());
-        destination = _locals[destination-1].getPredFF();
-    }
-    return true;
+    return false;
 }
 
-void Graph::fordFulkerson(int source, int destination) {
-    vector<Vehicle*> vehicles;
+
+
+int Graph::fordFulkerson(int source, int destination) {
+    int maxFlow = 0;
+    int v, u;
+
     for(int i = 0; i < _size; i++){
-        _locals[i].setCapacityFF(0);
-        for(auto e: _locals[i].getAdj()){
-            e.setFlow(0);
-        }
+        _locals[i].beginFordFulkerson();
     }
-    while(findAugmentationPath(source, destination, vehicles)){
-        int capacity = INF;
-        //Minimum global capacity
-        for(auto vehicle: vehicles){
-            capacity = min(capacity, vehicle->getCapacity());
-        }
+
+    while(bfsFF(source, destination)){
         PathFordFulkerson pathFF;
+        int pathFlow = INF;
 
-        //Residual capacity in the graph
-        for(auto vehicle: vehicles){
-            if(vehicle->getFlow() + capacity > vehicle->getCapacity()){
-                capacity -= vehicle->getFlow() + capacity - vehicle->getCapacity();
+        //Find maximum path capacity
+        for( v = destination; v != source; v = _locals[v-1].getPredFF()){
+            u = _locals[v-1].getPredFF();
+            for(auto e: _locals[u-1].getAdj()){
+                if(e.getDestination() == v){
+                    pathFlow = min(pathFlow,e.getResidual());
+                    //complete pathFF
+                    pathFF.completePath.push_back(v);
+                }
             }
         }
-        pathFF.capacity = capacity;
+        pathFF.completePath.push_back(source);
+        pathFF.capacity = pathFlow;
 
-        //Final path
-        for(auto vehicle: vehicles){
-            int vehicleSource = vehicle->getSource();
-            int vehicleDestination = vehicle->getDestination();
-            vehicle->setFlow(vehicle->getFlow() + capacity);
+        //Update residual capacities
+        for(v = destination; v != source; v = _locals[v-1].getPredFF()){
 
-            int newCapacity = capacity - vehicle->getFlow();
-            _locals[vehicleSource-1].setVehicleCapacityFF(vehicleSource, vehicleDestination, newCapacity);
-
-            if(vehicle->getFlow() == vehicle->getCapacity()){
-                vehicle->setActiveFF(false);
-                _locals[vehicleSource-1].setVehicleActiveFF(vehicleSource, vehicleDestination, false);
-                _locals[vehicleSource-1].setVehicleCapacityFF(vehicleSource, vehicleDestination, 0);
+            u = _locals[v-1].getPredFF();
+            vector<Vehicle>& vehiclesForward = _locals[u-1].getAdj();
+            for(int i = 0; i < vehiclesForward.size(); i++){
+                if(vehiclesForward[i].getDestination() == v){
+                    vehiclesForward[i].setResidual(vehiclesForward[i].getResidual() - pathFlow);
+                }
             }
-            pathFF.path.push_back({vehicle->getDuration(), vehicle->getDestination()});
-            pathFF.duration += vehicle->getDuration();
+
+            vector<Vehicle>& vehiclesBackward = _locals[v-1].getAdj();
+            for(int i = 0; i < vehiclesBackward.size(); i++){
+                if(vehiclesBackward[i].getDestination() == u){
+                    vehiclesBackward[i].setResidual(vehiclesBackward[i].getResidual() + pathFlow);
+                }
+            }
         }
-        pathFF.path.push_back({0, 1});
+        maxFlow += pathFlow;
+
         _pathsFF.push_back(pathFF);
-        vehicles.clear();
     }
-
+    return maxFlow;
 }
 
 void Graph::printFordFulkerson(int source, int destination, int groupDimension, bool isSceneTwoTwo, int groupAdded) {
     _pathsFF.clear();
     _chosenPathsFF.clear();
 
-    fordFulkerson(source, destination);
-
-    int maxElements = 0;
-    for(int i = 0; i < _pathsFF.size(); i++){
-        maxElements += _pathsFF[i].capacity;
-    }
+    int maxElements = fordFulkerson(source, destination);
 
     if(maxElements < groupDimension){
         cout << "Nao existe ligacao possivel entre a origem e o destino que escolheu para o numero de pessoas escolhidas (" << groupDimension << ")." << endl;
@@ -327,10 +311,10 @@ void Graph::printFordFulkerson(int source, int destination, int groupDimension, 
 
 void Graph::printPathFF(PathFordFulkerson &pathFF, int source, int &remainingSpots) {
     int capacity = INF;
-    for (int i =  pathFF.path.size() - 1; i >= 0; i--){
+    for (int i =  pathFF.completePath.size() - 1; i >= 0; i--){
         if(!pathFF.isFull) {
             capacity = min(capacity, pathFF.capacity);
-            int next = pathFF.path[i].second;
+            int next = pathFF.completePath[i];
             if(count(pathFF.completePath.begin(), pathFF.completePath.end(), next) == 0){
                 pathFF.completePath.push_back(next);
             }
@@ -385,7 +369,6 @@ void Graph::printFordFulkersonMax(int source, int destination) {
 
 
     for (int i = 0; i < _pathsFF.size(); i++){
-        //totalElements += _pathsFF[i].capacity;
         printPathFF(_pathsFF[i], source, remainingSpots);
 
     }
@@ -394,34 +377,73 @@ void Graph::printFordFulkersonMax(int source, int destination) {
 
 }
 
-void Graph::fastestReunion() {
+int Graph::fastestReunion() {
+    if(_chosenPathsFF.size() == 1){
+        cout << "O grupo pode percorrer o caminho todo junto." << endl;
+        return 0;
+    }
+
     int firstReunion = 0;
     int mightBeReunion = 0;
-    bool endCycle = false;
+    bool commonPath = true;
+
     //The path needs to be equal starting from the end to the reunion point, so we will iterate the chosen paths in reverse order
-    for(int i = 0; i < _chosenPathsFF.size(); i++){
-        if(endCycle){
-            break;
+    int pos = 1;
+    while(commonPath){
+        mightBeReunion = _chosenPathsFF[0].completePath[_chosenPathsFF[0].completePath.size()-pos];
+        for(int i = 1; i < _chosenPathsFF.size(); i++) {
+            if(_chosenPathsFF[i].completePath[_chosenPathsFF[i].completePath.size()-pos] != mightBeReunion){
+                commonPath = false;
+            }
         }
-        firstReunion = mightBeReunion;
-        mightBeReunion = 0;
-       for(int j = _chosenPathsFF[i].completePath.size() - 1; j >= 0 ; j--){
-           if(mightBeReunion == 0){
-               mightBeReunion = _chosenPathsFF[i].completePath[j];
-           }
-           if(mightBeReunion != _chosenPathsFF[i].completePath[j]){
-               endCycle = true;
-               break;
-           }
-       }
+        pos++;
+    }
+    if(pos > 2){
+        firstReunion = _chosenPathsFF[0].completePath[_chosenPathsFF[0].completePath.size()-pos];
     }
 
     if(firstReunion == 0){
         cout << "Nao ha nenhum local onde o grupo se possa encontrar antes de chegar ao destino." << endl;
     }
     else{
-        cout << "O grupo pode encontrar-se no local " << firstReunion << " e continuar junto no resto do percurso" << endl;
+        cout << "O grupo pode encontrar-se no local " << firstReunion << " e continuar o resto do percurso em conjunto." << endl;
+    }
+    return firstReunion;
+}
+
+void Graph::maximumWait(int reunion) {
+    if(reunion == 0){
+        cout << "O percurso nao tem nenhum ponto de encontro." << endl;
+        return;
     }
 
+    int maxDuration = 0;
+    int minDuration = INF;
 
+    for(int i = 0; i < _chosenPathsFF.size(); i++){
+        //duration of each path
+        int currentDuration = 0;
+        for(int j =  _chosenPathsFF[i].completePath.size()-1; j >= 0; j--) {
+            if(_chosenPathsFF[i].completePath[j] == reunion){
+                if(minDuration > currentDuration){
+                    minDuration = currentDuration;
+                }
+                if(maxDuration < currentDuration){
+                    maxDuration = currentDuration;
+                }
+                break;
+            }
+            int current = _chosenPathsFF[i].completePath[j];
+            int next = _chosenPathsFF[i].completePath[j + 1];
+            vector<Vehicle>& vehicles = _locals[current-1].getAdj();
+            for(int k = 0; k < vehicles.size(); k++){
+                if(vehicles[k].getDestination() == next){
+                    currentDuration += vehicles[k].getDuration();
+                }
+            }
+
+        }
+    }
+
+    cout << "O tempo maximo de espera e de " << maxDuration - minDuration << " horas." << endl;
 }

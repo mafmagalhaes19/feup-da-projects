@@ -11,14 +11,12 @@
 #include "Local.h"
 #include "maxHeap.h"
 
+
 using namespace std;
 
 struct PathFordFulkerson{
-    //Vector of a pair of int that contains the duration and the destination of the path
-    vector<pair<int, int>> path;
     vector<int> completePath;
     int capacity;
-    int duration = 0;
     bool isFull;
 };
 
@@ -54,15 +52,15 @@ public:
     bool bfsLS(int s, int d);
 
     //Ford Fulkerson
-    bool findAugmentationPath(int source, int destination, vector<Vehicle*> &vehicles);
-    void fordFulkerson(int source, int destination);
+    bool bfsFF(int source, int destination);
+    int fordFulkerson(int source, int destination);
     static bool comparePathsFF(PathFordFulkerson path1, PathFordFulkerson path2);
     void printFordFulkerson(int source, int destination, int groupDimension, bool isSceneTwoTwo, int groupAdded);
     void printPathFF(PathFordFulkerson &pathFF, int source, int &remainingSpots);
     void printFordFulkersonMax(int source, int destination);
 
-    void fastestReunion();
-
+    int fastestReunion();
+    void maximumWait(int reunion);
 
 };
 

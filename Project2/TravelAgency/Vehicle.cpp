@@ -14,8 +14,8 @@ Vehicle::Vehicle(int source, int destination, int capacity, int duration) {
     _destination = destination;
     _capacity = capacity;
     _duration = duration;
-    _activeFF = true;
     _flow = 0;
+    _residual = _capacity;
 }
 
 int Vehicle::getSource() {
@@ -34,23 +34,15 @@ int Vehicle::getDuration() {
     return _duration;
 }
 
-int Vehicle::getFlow() {
-    return _flow;
-}
-
 void Vehicle::setFlow(int flow) {
     _flow = flow;
 }
 
-bool Vehicle::getActiveFF() {
-    return _activeFF;
+int Vehicle::getResidual() {
+    return _residual;
 }
 
-void Vehicle::setActiveFF(bool activeFF) {
-    _activeFF = activeFF;
-}
-
-void Vehicle::setCapacity(int capacity) {
-    _capacity = capacity;
+void Vehicle::setResidual(int residual) {
+    _residual = residual;
 }
 

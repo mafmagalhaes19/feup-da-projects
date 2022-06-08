@@ -246,7 +246,15 @@ void Menu::SceneTwoMenu() {
             case 5:
                 //Scene 2.5
                 helperSetGraph();
-                _travelAgency.sceneTwoFive();
+                groupDimension = 0;
+
+                source = 0;
+                destination = 0;
+                cout << "Origem: "; cin >> source;
+                cout << "Destino: "; cin >> destination;
+                cout << "Numero total de elementos do grupo: "; cin >> groupDimension;
+
+                _travelAgency.sceneTwoFive(source, destination, groupDimension);
                 break;
             case 6:
                 break;
@@ -286,12 +294,12 @@ void Menu::helperSetGraph() {
 
     while(true){
         cout << endl;
-        cout << "Escolha o grafo a utilizar (entre 1 a 11 - preferencialmente o 11): ";
+        cout << "Escolha o grafo a utilizar (entre 1 a 12 - preferencialmente o 11): ";
 
         cin >> choice;
         cout << endl;
         input = validadeInput(choice);
-        if(input <= 11 && input > 0){
+        if(input <= 12 && input > 0){
             _travelAgency.setGraph(input);
             break;
         }

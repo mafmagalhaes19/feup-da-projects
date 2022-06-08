@@ -4,7 +4,7 @@
 
 #include "Local.h"
 
-Local::Local(int id, Vehicle predVehicle) : _predVehicle(predVehicle) {
+Local::Local(int id, Vehicle predVehicle){
     _id = id;
 }
 
@@ -12,7 +12,7 @@ void Local::addAdjacentVehicle(Vehicle vehicle) {
     _adj.push_back(vehicle);
 }
 
-vector<Vehicle> Local::getAdj() {
+vector<Vehicle>& Local::getAdj() {
     return _adj;
 }
 
@@ -34,15 +34,6 @@ int Local::getPred() {
 
 void Local::setPred(int pred) {
     _pred= pred;
-}
-
-bool Local::getVisited() {
-    return _visited;
-}
-
-
-void Local::setVisited(bool visited) {
-    _visited = visited;
 }
 
 int Local::getTranshipmentBFS() {
@@ -78,14 +69,6 @@ void Local::setVisitedFF(bool visitedFF) {
     _visitedFF = visitedFF;
 }
 
-int Local::getCapacityFF() {
-    return _capacityFF;
-}
-
-void Local::setCapacityFF(int capacityFF) {
-    _capacityFF = capacityFF;
-}
-
 int Local::getPredFF() {
     return _predFF;
 }
@@ -94,26 +77,10 @@ void Local::setPredFF(int predFF) {
     _predFF = predFF;
 }
 
-Vehicle * Local::getPredVehicleFF() {
-    return &_predVehicle;
-}
-
-void Local::setPredVehicleFF(Vehicle predVehicleFF) {
-    _predVehicle = predVehicleFF;
-}
-
-void Local::setVehicleActiveFF(int source, int destination , bool activeFF) {
+void Local::beginFordFulkerson(){
     for(int i = 0; i < _adj.size(); i++){
-        if(_adj[i].getSource() == source && _adj[i].getDestination() == destination){
-            _adj[i].setActiveFF(activeFF);
-        }
-    }
-}
-
-void Local::setVehicleCapacityFF(int source, int destination , int capacityFF) {
-    for(int i = 0; i < _adj.size(); i++){
-        if(_adj[i].getSource() == source && _adj[i].getDestination() == destination){
-            _adj[i].setCapacity(capacityFF);
-        }
+        int aux = _adj[i].getCapacity();
+        _adj[i].setFlow(0);
+        _adj[i].setResidual(aux);
     }
 }

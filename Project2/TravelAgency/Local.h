@@ -14,13 +14,13 @@ using namespace std;
 class Local {
 private:
     int _id;
+
     //The list of outgoing vehicles of the graph to adjacent locals
     vector<Vehicle> _adj;
 
     //Dijkstra Algorithm
     int _capacity;
     int _pred;
-    bool _visited;
 
     //BFS algorithm
     int _transhipmentBFS;
@@ -29,15 +29,14 @@ private:
 
     //Ford Fulkerson
     bool _visitedFF;
-    int _capacityFF;
     int _predFF;
-    Vehicle _predVehicle;
+
 
 public:
     explicit Local(int id, Vehicle predVehicle);
     void addAdjacentVehicle(Vehicle vehicle);
 
-    vector<Vehicle> getAdj();
+    vector<Vehicle>& getAdj();
 
     int getId();
 
@@ -46,8 +45,6 @@ public:
     void setCapacity (int capacity);
     int getPred();
     void setPred( int pred);
-    bool getVisited();
-    void setVisited(bool visited);
 
     //BFS Algorithm
     int getTranshipmentBFS();
@@ -58,16 +55,11 @@ public:
     void setVisitedBFS(bool visited);
 
     //Ford Fulkerson
+    void beginFordFulkerson();
     bool getVisitedFF();
     void setVisitedFF(bool visitedFF);
-    int getCapacityFF();
-    void setCapacityFF(int capacityFF);
     int getPredFF();
     void setPredFF( int predFF);
-    Vehicle * getPredVehicleFF();
-    void setPredVehicleFF( Vehicle predVehicleFF);
-    void setVehicleActiveFF(int source, int destination, bool activeFF);
-    void setVehicleCapacityFF(int source, int destination, int capacityFF);
 
 };
 
